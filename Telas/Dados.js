@@ -4,32 +4,44 @@ import { View, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-nativ
 import Icon from '@expo/vector-icons/Ionicons';
 import MaskInput from 'react-native-mask-input';
 
-const Marcar = ({navigation}) => {
-  const [date, setDate] = React.useState('');
+const Dados = ({navigation}) => {
+  const [tel, setTel] = React.useState('');
 
     return(
       <View style={styles.main}>
-        <Text style={styles.titulo}>Marcação</Text>
+        <Text style={styles.titulo}>Informações do usuário</Text>
 
         <View style={styles.gpcampos}>
           <View style={styles.boxicones}>
-            <Icon name="car" size={15} style={styles.icones}/>
+            <Icon name="person" size={15} style={styles.icones}/>
           </View>
-          <TextInput style={styles.campos} placeholder={"Veículo"} keyboardType={'text'}></TextInput>
+          <TextInput style={styles.campos} editable={false} placeholder={"Nome"} keyboardType={'text'}></TextInput>
 
           <View style={styles.boxicones}>
-            <Icon name="build" size={15} style={styles.icones}/>
+            <Icon name="mail-outline" size={15} style={styles.icones}/>
           </View>
-          <TextInput style={styles.campos} placeholder={"Descrição do serviço"} keyboardType={'text'}></TextInput>
+          <TextInput style={styles.campos} placeholder={"E-mail"} keyboardType={'text'}></TextInput>
 
           <View style={styles.boxicones}>
-            <Icon name="calendar" size={15} style={styles.icones}/>
+            <Icon name="call-outline" size={15} style={styles.icones}/>
           </View>
           <MaskInput style={styles.campos}
-          placeholder={"Data e hora"}
-          value={date}
-          onChangeText={(masked, unmasked) => {setDate(masked);}}
-      mask={[/\d/, /\d/, '/', /\d/, /\d/, '/',/\d/, /\d/, /\d/, /\d/, ' - ', /\d/, /\d/, ':', /\d/, /\d/]}/>
+          placeholder={"Telefone"}
+          value={tel}
+          onChangeText={(masked, unmasked) => {setTel(masked);}}
+      mask={['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+    />
+
+          <View style={styles.boxicones}>
+            <Icon name="key" size={15} style={styles.icones}/>
+          </View>
+          <TextInput style={styles.campos} placeholder={"Senha"} secureTextEntry={true}></TextInput>
+
+          <View style={styles.boxicones}>
+            <Icon name="key" size={15} style={styles.icones}/>
+          </View>
+          <TextInput style={styles.campos} placeholder={"Confirmar senha"} secureTextEntry={true}></TextInput>          
+        </View>
 
         <View style={styles.gpbtt}>
           <TouchableOpacity style={styles.login} onPress={() => navigation.navigate("Veiculo")}>
@@ -37,16 +49,15 @@ const Marcar = ({navigation}) => {
             <Icon name="arrow-back-outline" size={20} style={[styles.icones, styles.iconesbtt]}/>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.login} onPress={() => navigation.navigate("Marcados")}>
-            <Text style={[styles.txtlogin,{ color: '#222222'}]}>Marcar</Text>
-            <Icon name="person-add" size={20} style={[styles.icones, styles.iconesbtt]}/>
+          <TouchableOpacity style={styles.login} onPress={() => navigation.navigate("DadosAlterados")}>
+            <Text style={[styles.txtlogin,{ color: '#222222'}]}>Alterar</Text>
+            <Icon name="save" size={20} style={[styles.icones, styles.iconesbtt]}/>
           </TouchableOpacity>
         </View>
       </View>
-      </View>
     )
 }
-export default Marcar;
+export default Dados;
   
 const styles = StyleSheet.create({
   main: {
@@ -96,8 +107,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ffa500',
     fontSize: 15,
     marginBottom: 10,
-    outlineStyle: 'none',
-    textAlign: 'left'
+    outlineStyle: 'none'
   },
 
   gpbtt: {
@@ -128,5 +138,5 @@ const styles = StyleSheet.create({
 
   iconesbtt: {
     color: '#222222',
-  }
+  },
 })

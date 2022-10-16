@@ -5,11 +5,15 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import Login from './Telas/Login'
 import Senha from './Telas/Senha'
-import Veiculo from './Telas/Veiculo'
-import Cadastro from './Telas/Cadastro'
-import Menu from './Telas/Menu'
 import Verificar from './Telas/Verificar'
+import SenhaAlterada from './Telas/SenhaAlterada'
+import Cadastro from './Telas/Cadastro'
+import CadastroFeito from './Telas/CadastroFeito'
+import Veiculo from './Telas/Veiculo'
 import Marcar from './Telas/Marcar'
+import Marcados from './Telas/Marcados'
+import Dados from './Telas/Dados'
+import DadosAlterados from './Telas/DadosAlterados'
 
 const Stack = createStackNavigator()
 
@@ -20,9 +24,14 @@ export default function App() {
         <Stack.Screen name="Login" component={Login}/>
         <Stack.Screen name="Senha" component={Senha}/>
         <Stack.Screen name="Verificar" component={Verificar}/>
+        <Stack.Screen name="SenhaAlterada" component={SenhaAlterada}/>
         <Stack.Screen name="Cadastro" component={Cadastro}/>
+        <Stack.Screen name="CadastroFeito" component={CadastroFeito}/>
         <Stack.Screen name="Veiculo" component={Veiculo}/>
         <Stack.Screen name="Marcar" component={Marcar}/>
+        <Stack.Screen name="Marcados" component={Marcados}/>
+        <Stack.Screen name="Dados" component={Dados}/>
+        <Stack.Screen name="DadosAlterados" component={DadosAlterados}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

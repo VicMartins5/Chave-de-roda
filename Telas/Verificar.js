@@ -1,25 +1,37 @@
 import React  from "react";
-import { View, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TextInput, TouchableOpacity, Text, Image, Dimensions} from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
+import MaskInput from 'react-native-mask-input';
+
+var width = Dimensions.get('window').width; 
 
 const Verificar = ({navigation}) => {
+    const [codigo, setCodigo] = React.useState('');
+
     return(
       <View style={styles.main}>
+        <Image style={styles.logo} source={require('../Imagens/Logo.svg')}/>
         <Text style={styles.titulo}>Verificação de código</Text>
         <Text style={styles.texto}>Insira o código de verificação enviado para seu e-mail.</Text>
 
-          <TextInput style={styles.campos} placeholder={"Código"} keyboardType={'numeric'}></TextInput>
+          <MaskInput style={styles.campos}
+          placeholder={"Código"}
+          value={codigo}
+          onChangeText={(masked, unmasked) => {setCodigo(masked);}}
+      mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
+    />
           <TouchableOpacity style={styles.codigo}>Reenviar código?</TouchableOpacity>
 
         <View style={styles.gpbtt}>
           <TouchableOpacity style={styles.login} onPress={() => navigation.navigate("Login")}>
-            <Text style={[styles.txtlogin,{ color: '#222222'}]}>Verificar</Text>
-            <Icon name="arrow-forward-outline" size={20} style={[styles.icones, styles.iconesbtt]}/>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.login} onPress={() => navigation.navigate("Login")}>
             <Text style={styles.txtlogin}>Cancelar</Text>
             <Icon name="arrow-back-outline" size={20} style={[styles.icones, styles.iconesbtt]}/>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.login} onPress={() => navigation.navigate("SenhaAlterada")}>
+            <Text style={[styles.txtlogin,{ color: '#222222'}]}>Verificar</Text>
+            <Icon name="arrow-forward-outline" size={20} style={[styles.icones, styles.iconesbtt]}/>
           </TouchableOpacity>
         </View>
       </View>
@@ -35,6 +47,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingTop: 50,
     backgroundColor: '#222222',
+  },
+
+  logo: {
+    width: width*0.6,
+    height: (width*0.6)*0.55,
+    alignSelf: 'center',
+    marginBottom: 10,
   },
   
   titulo: {

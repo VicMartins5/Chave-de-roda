@@ -2,8 +2,11 @@ import React  from "react";
 import { View, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
+import MaskInput from 'react-native-mask-input';
 
-const Cadastrar = ({navigation}) => {
+const Cadastro = ({navigation}) => {
+  const [tel, setTel] = React.useState('');
+
     return(
       <View style={styles.main}>
         <Text style={styles.titulo}>Cadastrar usuário</Text>
@@ -22,7 +25,12 @@ const Cadastrar = ({navigation}) => {
           <View style={styles.boxicones}>
             <Icon name="call-outline" size={15} style={styles.icones}/>
           </View>
-          <TextInput style={styles.campos} placeholder={"Telefone"} keyboardType={'text'}></TextInput>
+          <MaskInput style={styles.campos}
+          placeholder={"Telefone"}
+          value={tel}
+          onChangeText={(masked, unmasked) => {setTel(masked);}}
+      mask={['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+    />
 
           <View style={styles.boxicones}>
             <Icon name="key" size={15} style={styles.icones}/>
@@ -37,18 +45,19 @@ const Cadastrar = ({navigation}) => {
 
         <View style={styles.gpbtt}>
           <TouchableOpacity style={styles.login} onPress={() => navigation.navigate("Login")}>
-            <Text style={[styles.txtlogin,{ color: '#222222'}]}>Cadastrar-se</Text>
-            <Icon name="person-add" size={20} style={[styles.icones, styles.iconesbtt]}/>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.login} onPress={() => navigation.navigate("Login")}>
             <Text style={styles.txtlogin}>Cancelar</Text>
             <Icon name="arrow-back-outline" size={20} style={[styles.icones, styles.iconesbtt]}/>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.login} onPress={() => navigation.navigate("CadastroFeito")}>
+            <Text style={[styles.txtlogin,{ color: '#222222'}]}>Cadastrar-se</Text>
+            <Icon name="person-add" size={20} style={[styles.icones, styles.iconesbtt]}/>
           </TouchableOpacity>
         </View>
       </View>
     )
 }
-export default Cadastrar;
+export default Cadastro;
   
 const styles = StyleSheet.create({
   main: {

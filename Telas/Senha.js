@@ -1,11 +1,14 @@
 import React  from "react";
-import { View, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TextInput, TouchableOpacity, Text, Image, Dimensions} from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
+
+var width = Dimensions.get('window').width; 
 
 const Senha = ({navigation}) => {
     return(
       <View style={styles.main}>
+        <Image style={styles.logo} source={require('../Imagens/Logo.svg')}/>
         <Text style={styles.titulo}>Esqueceu a senha?</Text>
         <Text style={styles.texto}>Insira seu e-mail para envio de código de verificação.</Text>
 
@@ -17,13 +20,14 @@ const Senha = ({navigation}) => {
         </View>
 
         <View style={styles.gpbtt}>
-          <TouchableOpacity style={styles.login} onPress={() => navigation.navigate("Verificar")}>
-            <Text style={[styles.txtlogin,{ color: '#222222'}]}>Confirmar</Text>
-            <Icon name="arrow-forward-outline" size={20} style={[styles.icones, styles.iconesbtt]}/>
-          </TouchableOpacity>
           <TouchableOpacity style={styles.login} onPress={() => navigation.navigate("Login")}>
             <Text style={styles.txtlogin}>Cancelar</Text>
             <Icon name="arrow-back-outline" size={20} style={[styles.icones, styles.iconesbtt]}/>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.login} onPress={() => navigation.navigate("Verificar")}>
+            <Text style={[styles.txtlogin,{ color: '#222222'}]}>Confirmar</Text>
+            <Icon name="arrow-forward-outline" size={20} style={[styles.icones, styles.iconesbtt]}/>
           </TouchableOpacity>
         </View>
       </View>
@@ -39,6 +43,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingTop: 50,
     backgroundColor: '#222222',
+  },
+
+  logo: {
+    width: width*0.6,
+    height: (width*0.6)*0.55,
+    alignSelf: 'center',
+    marginBottom: 10,
   },
   
   titulo: {
