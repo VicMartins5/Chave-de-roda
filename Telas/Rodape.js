@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     alignContent:'center',
     textAlign: 'center',
     backgroundColor: '#222222',
-    paddingTop: 20
+    paddingVertical: 10
   },
 
   texto: {
