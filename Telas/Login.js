@@ -1,5 +1,5 @@
 import React  from "react";
-import { Image, View, StyleSheet, TextInput, TouchableOpacity, Dimensions, Text } from 'react-native';
+import {Image, View, StyleSheet, TextInput, TouchableOpacity, Dimensions, Text, ScrollView } from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
 
@@ -7,7 +7,7 @@ var width = Dimensions.get('window').width;
 
 const Login = ({navigation}) => {
     return(
-      <View style={styles.main}>
+      <ScrollView style={styles.main} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
         <Image style={styles.logo} source={require('../Imagens/Logo.svg')}/>
 
         <View style={styles.gplogin}>
@@ -34,7 +34,7 @@ const Login = ({navigation}) => {
             <Icon name="log-in" size={20} style={[styles.icones, styles.iconesbtt]}/>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     )
 }
 export default Login;

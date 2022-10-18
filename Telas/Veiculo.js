@@ -1,14 +1,14 @@
 import React  from "react";
-import { Text , View, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
+import { Text , View, StyleSheet, ImageBackground, TouchableOpacity, ScrollView } from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
 
 const Veiculo = ({navigation}) => {
     return(
-      <View style={styles.container}>
+      <ScrollView style={styles.main} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
         <View style={styles.menu}>
           <View style={styles.touchableOpacityStyle}>
-            <TouchableOpacity onPress={() => navigation.navigate("Veiculo")} style={styles.floatingButtonStyle}>
+            <TouchableOpacity onPress={() => navigation.navigate("Veiculos")} style={styles.floatingButtonStyle}>
               <View style={styles.menuboxicones}>
                 <Icon name="car" size={30} style={styles.menuicones}/>
               </View>
@@ -62,13 +62,14 @@ const Veiculo = ({navigation}) => {
             </ImageBackground>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     )
 }
 export default Veiculo;
   
 const styles = StyleSheet.create({
-  container :{
+  main :{
+    flex: 1,
     alignContent:'center',
     textAlign: 'center',
     backgroundColor: '#222222',

@@ -1,5 +1,5 @@
 import React  from "react";
-import { View, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TextInput, TouchableOpacity, Text, ScrollView } from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
 import MaskInput from 'react-native-mask-input';
@@ -8,7 +8,7 @@ const Dados = ({navigation}) => {
   const [tel, setTel] = React.useState('');
 
     return(
-      <View style={styles.main}>
+      <ScrollView style={styles.main} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
         <Text style={styles.titulo}>Informações do usuário</Text>
 
         <View style={styles.gpcampos}>
@@ -54,7 +54,7 @@ const Dados = ({navigation}) => {
             <Icon name="save" size={20} style={[styles.icones, styles.iconesbtt]}/>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     )
 }
 export default Dados;

@@ -1,5 +1,5 @@
 import React, {useEffect}  from "react";
-import { View, StyleSheet, Text, Image, Dimensions} from 'react-native';
+import { View, StyleSheet, Text, Image, Dimensions, ScrollView} from 'react-native';
 
 var width = Dimensions.get('window').width; 
 
@@ -13,10 +13,10 @@ const SenhaAlterada = ({navigation}) => {
   }, [current]);
 
   return(
-    <View style={styles.main}>
+      <ScrollView style={styles.main} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
       <Image style={styles.logo} source={require('../Imagens/Logo.svg')}/>
       <Text style={styles.titulo}>Senha alterada com sucesso.</Text>
-    </View>
+    </ScrollView>
   )
 }
 

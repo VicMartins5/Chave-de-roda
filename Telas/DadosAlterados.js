@@ -3,24 +3,24 @@ import { View, StyleSheet, Text, Image, Dimensions, ScrollView} from 'react-nati
 
 var width = Dimensions.get('window').width; 
 
-const CadastroFeito = ({navigation}) => {
+const SenhaAlterada = ({navigation}) => {
   current = 0
   
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate("Login")
+      navigation.navigate("Veiculo")
     }, 2000);
   }, [current]);
 
   return(
       <ScrollView style={styles.main} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
       <Image style={styles.logo} source={require('../Imagens/Logo.svg')}/>
-      <Text style={styles.titulo}>Cadastro realizado com sucesso.</Text>
+      <Text style={styles.titulo}>Dados alterados com sucesso.</Text>
     </ScrollView>
   )
 }
 
-export default CadastroFeito;
+export default SenhaAlterada;
   
 const styles = StyleSheet.create({
   main: {

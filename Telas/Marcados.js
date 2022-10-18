@@ -1,11 +1,11 @@
 import React  from "react";
-import { Text , View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text , View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
 
 const Marcados = ({navigation}) => {
     return(
-      <View style={styles.container}>
+      <ScrollView style={styles.main} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
         <View style={styles.menu}>
           <View style={styles.touchableOpacityStyle}>
             <TouchableOpacity onPress={() => navigation.navigate("Veiculo")} style={styles.floatingButtonStyle}>
@@ -40,14 +40,15 @@ const Marcados = ({navigation}) => {
           <View style={styles.marcados}>
             <View style={[styles.info,{ borderBottomColor: '#ffa500', borderBottomWidth: 1}]}>
               <Text style={styles.veiculo}>Carro</Text>
-              <Text style={styles.data}>16/11/2022 - 08:12</Text>
+              <Text style={styles.data}>16/11/2022</Text>
             </View>
 
             <View style={styles.info}>
               <Text style={styles.desc}>Serviço de suspensão, pastilhas, troca de óleo, troca de filtros, revisão geral.</Text>
               <View style={styles.gpicones}>
-                <Icon name="create" size={15} style={styles.icones}/>
-                <Icon name="trash" size={15} style={[styles.icones,{ marginTop: 10}]}/>
+                <TouchableOpacity><Icon name="create" size={15} style={styles.icones}/></TouchableOpacity>
+                <TouchableOpacity><Icon name="trash" size={15} style={styles.icones}/></TouchableOpacity>
+                <TouchableOpacity><Icon name="star" size={15} style={styles.icones}   onPress={() => navigation.navigate("Avaliacao")}/></TouchableOpacity>
               </View>
             </View>
           </View>
@@ -55,41 +56,26 @@ const Marcados = ({navigation}) => {
           <View style={styles.marcados}>
             <View style={[styles.info,{ borderBottomColor: '#ffa500', borderBottomWidth: 1}]}>
               <Text style={styles.veiculo}>Carro</Text>
-              <Text style={styles.data}>16/11/2022 - 08:12</Text>
+              <Text style={styles.data}>16/11/2022</Text>
             </View>
 
             <View style={styles.info}>
               <Text style={styles.desc}>Serviço de suspensão, pastilhas, troca de óleo, troca de filtros, revisão geral.</Text>
               <View style={styles.gpicones}>
-                <Icon name="create" size={15} style={styles.icones}/>
-                <Icon name="trash" size={15} style={[styles.icones,{ marginTop: 10}]}/>
+                <TouchableOpacity><Icon name="create" size={15} style={styles.icones}/></TouchableOpacity>
+                <TouchableOpacity><Icon name="trash" size={15} style={styles.icones}/></TouchableOpacity>
+                <TouchableOpacity><Icon name="star" size={15} style={styles.icones}   onPress={() => navigation.navigate("Avaliacao")}/></TouchableOpacity>
               </View>
             </View>
           </View>
-
-          <View style={styles.marcados}>
-            <View style={[styles.info,{ borderBottomColor: '#ffa500', borderBottomWidth: 1}]}>
-              <Text style={styles.veiculo}>Carro</Text>
-              <Text style={styles.data}>16/11/2022 - 08:12</Text>
-            </View>
-
-            <View style={styles.info}>
-              <Text style={styles.desc}>Serviço de suspensão, pastilhas, troca de óleo, troca de filtros, revisão geral.</Text>
-              <View style={styles.gpicones}>
-                <Icon name="create" size={15} style={styles.icones}/>
-                <Icon name="trash" size={15} style={[styles.icones,{ marginTop: 10}]}/>
-              </View>
-            </View>
-          </View>
-
         </View>
-      </View>
+      </ScrollView>
     )
 }
 export default Marcados;
   
 const styles = StyleSheet.create({
-  container :{
+  main :{
     flex: 1,
     alignContent:'center',
     textAlign: 'center',
@@ -154,6 +140,7 @@ const styles = StyleSheet.create({
 
   icones: {
     color: '#ffa500',
+    marginBottom: 10
   },
 
   menu: {

@@ -1,5 +1,5 @@
 import React  from "react";
-import { View, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TextInput, TouchableOpacity, Text, ScrollView } from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
 import MaskInput from 'react-native-mask-input';
@@ -8,7 +8,7 @@ const Marcar = ({navigation}) => {
   const [date, setDate] = React.useState('');
 
     return(
-      <View style={styles.main}>
+      <ScrollView style={styles.main} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
         <Text style={styles.titulo}>Marcação</Text>
 
         <View style={styles.gpcampos}>
@@ -17,19 +17,19 @@ const Marcar = ({navigation}) => {
           </View>
           <TextInput style={styles.campos} placeholder={"Veículo"} keyboardType={'text'}></TextInput>
 
-          <View style={styles.boxicones}>
+          <View style={[styles.boxicones,{ alignItems: 'top', paddingTop: 13}]}>
             <Icon name="build" size={15} style={styles.icones}/>
           </View>
-          <TextInput style={styles.campos} placeholder={"Descrição do serviço"} keyboardType={'text'}></TextInput>
+          <TextInput style={[styles.campos,{ alignItems: 'top'}]} placeholder={"Descrição do serviço"} keyboardType={'text'} multiline={true} numberOfLines={4}></TextInput>
 
           <View style={styles.boxicones}>
             <Icon name="calendar" size={15} style={styles.icones}/>
           </View>
           <MaskInput style={styles.campos}
-          placeholder={"Data e hora"}
+          placeholder={"Data"}
           value={date}
           onChangeText={(masked, unmasked) => {setDate(masked);}}
-      mask={[/\d/, /\d/, '/', /\d/, /\d/, '/',/\d/, /\d/, /\d/, /\d/, ' - ', /\d/, /\d/, ':', /\d/, /\d/]}/>
+      mask={[/\d/, /\d/, '/', /\d/, /\d/, '/',/\d/, /\d/, /\d/, /\d/]}/>
 
         <View style={styles.gpbtt}>
           <TouchableOpacity style={styles.login} onPress={() => navigation.navigate("Veiculo")}>
@@ -43,7 +43,7 @@ const Marcar = ({navigation}) => {
           </TouchableOpacity>
         </View>
       </View>
-      </View>
+      </ScrollView>
     )
 }
 export default Marcar;

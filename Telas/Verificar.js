@@ -1,5 +1,5 @@
 import React  from "react";
-import { View, StyleSheet, TextInput, TouchableOpacity, Text, Image, Dimensions} from 'react-native';
+import { View, StyleSheet, TextInput, TouchableOpacity, Text, Image, Dimensions, ScrollView} from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
 import MaskInput from 'react-native-mask-input';
@@ -10,7 +10,7 @@ const Verificar = ({navigation}) => {
     const [codigo, setCodigo] = React.useState('');
 
     return(
-      <View style={styles.main}>
+      <ScrollView style={styles.main} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
         <Image style={styles.logo} source={require('../Imagens/Logo.svg')}/>
         <Text style={styles.titulo}>Verificação de código</Text>
         <Text style={styles.texto}>Insira o código de verificação enviado para seu e-mail.</Text>
@@ -34,7 +34,7 @@ const Verificar = ({navigation}) => {
             <Icon name="arrow-forward-outline" size={20} style={[styles.icones, styles.iconesbtt]}/>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     )
 }
 export default Verificar;

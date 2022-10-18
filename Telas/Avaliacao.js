@@ -1,39 +1,36 @@
 import React  from "react";
-import { View, StyleSheet, TextInput, TouchableOpacity, Text, Image, Dimensions, ScrollView} from 'react-native';
+import { View, StyleSheet, TextInput, TouchableOpacity, Text, ScrollView } from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
 
-var width = Dimensions.get('window').width; 
+const Avalicao = ({navigation}) => {
 
-const Senha = ({navigation}) => {
     return(
       <ScrollView style={styles.main} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
-        <Image style={styles.logo} source={require('../Imagens/Logo.svg')}/>
-        <Text style={styles.titulo}>Esqueceu a senha?</Text>
-        <Text style={styles.texto}>Insira seu e-mail para envio de código de verificação.</Text>
+        <Text style={styles.titulo}>Avalie o serviço</Text>
 
         <View style={styles.gpcampos}>
-          <View style={styles.boxicones}>
-            <Icon name="mail-outline" size={15} style={styles.icones}/>
+          <View style={[styles.boxicones,{ alignItems: 'top', paddingTop: 13}]}>
+            <Icon name="star" size={15} style={styles.icones}/>
           </View>
-          <TextInput style={styles.campos} placeholder={"E-mail"} keyboardType={'text'}></TextInput>
+          <TextInput style={[styles.campos,{ alignItems: 'top'}]} placeholder={"Avalie o serviço"} keyboardType={'text'} multiline={true} numberOfLines={4}></TextInput>
         </View>
 
         <View style={styles.gpbtt}>
-          <TouchableOpacity style={styles.login} onPress={() => navigation.navigate("Login")}>
-            <Text style={styles.txtlogin}>Cancelar</Text>
+          <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate("Marcados")}>
+            <Text style={styles.txtbotao}>Cancelar</Text>
             <Icon name="arrow-back-outline" size={20} style={[styles.icones, styles.iconesbtt]}/>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.login} onPress={() => navigation.navigate("Verificar")}>
-            <Text style={[styles.txtlogin,{ color: '#222222'}]}>Confirmar</Text>
-            <Icon name="arrow-forward-outline" size={20} style={[styles.icones, styles.iconesbtt]}/>
+          <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate("AvaliacaoRegistrada")}>
+            <Text style={[styles.txtbotao,{ color: '#222222'}]}>Avaliar</Text>
+            <Icon name="star" size={20} style={[styles.icones, styles.iconesbtt]}/>
           </TouchableOpacity>
         </View>
       </ScrollView>
     )
 }
-export default Senha;
+export default Avalicao;
   
 const styles = StyleSheet.create({
   main: {
@@ -44,28 +41,13 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     backgroundColor: '#222222',
   },
-
-  logo: {
-    width: width*0.6,
-    height: (width*0.6)*0.55,
-    alignSelf: 'center',
-    marginBottom: 10,
-  },
   
   titulo: {
     color: '#ffa500',
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 30,
-  },
-
-  texto: {
-    color: '#ffa500',
-    textAlign: 'center',
-    fontSize: 10,
     marginBottom: 20,
-    width: '80%',
-    alignSelf: 'center',
   },
 
   gpcampos: {
@@ -98,7 +80,8 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ffa500',
     fontSize: 15,
     marginBottom: 10,
-    outlineStyle: 'none'
+    outlineStyle: 'none',
+    textAlign: 'left'
   },
 
   gpbtt: {
@@ -109,7 +92,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 
-  login: {
+  botao: {
     width: '49%',
     backgroundColor: "#ffa500",
     padding: '10px',
@@ -120,7 +103,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
 
-  txtlogin: {
+  txtbotao: {
     fontSize: 15,
     fontWeight: 'bold',
     alignSelf: 'center',
@@ -129,5 +112,5 @@ const styles = StyleSheet.create({
 
   iconesbtt: {
     color: '#222222',
-  },
+  }
 })
