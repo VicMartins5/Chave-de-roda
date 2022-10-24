@@ -1,42 +1,76 @@
 import React from 'react';
- import {StyleSheet, View, TouchableOpacity} from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
- 
-const Menu = ({navigation}) => {
+import { auth } from '../firebase';
+
+const Menu = ({ navigation }) => {
+    const Deslogar = () => {
+      auth
+        .signOut()
+        .then(() => {
+          navigation.navigate('Login');
+        })
+        .catch((error) => alert(error.message));
+    };
+
   return (
     <View style={styles.menu}>
       <View style={styles.touchableOpacityStyle}>
-        <TouchableOpacity onPress={() => navigation.navigate("Veiculo")} style={styles.floatingButtonStyle}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Veiculo')}
+          style={styles.floatingButtonStyle}>
           <View style={styles.menuboxicones}>
-            <Icon name="car" size={30} style={styles.menuicones}/>
+            <Icon name="car" size={30} style={styles.menuicones} />
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Marcados")} style={styles.floatingButtonStyle}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Marcados')}
+          style={styles.floatingButtonStyle}>
           <View style={styles.menuboxicones}>
-            <Icon name="calendar" size={30} style={styles.menuicones}/>
+            <Icon name="calendar" size={30} style={styles.menuicones} />
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Dados")} style={styles.floatingButtonStyle}>
+        <TouchableOpacity
+          style={[styles.floatingButtonStyle, { borderRightWidth: 0 }]}>
           <View style={styles.menuboxicones}>
-            <Icon name="settings" size={30} style={styles.menuicones}/>
+            <Icon
+              name="star"
+              onPress={() => navigation.navigate('Avaliados')}
+              size={30}
+              style={styles.menuicones}
+            />
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.floatingButtonStyle,{ borderRightWidth: 0}]}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Dados')}
+          style={styles.floatingButtonStyle}>
           <View style={styles.menuboxicones}>
-            <Icon name="log-out" onPress={() => navigation.navigate("Login")} size={30} style={styles.menuicones}/>
+            <Icon name="settings" size={30} style={styles.menuicones} />
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.floatingButtonStyle, { borderRightWidth: 0 }]}>
+          <View style={styles.menuboxicones}>
+            <Icon
+              name="log-out"
+              onPress={Deslogar}
+              size={30}
+              style={styles.menuicones}
+            />
           </View>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
- 
+
 export default Menu;
- 
+
 const styles = StyleSheet.create({
   menu: {
     marginBottom: 60,
@@ -53,7 +87,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  
+
   touchableOpacityStyle: {
     position: 'absolute',
     justifyContent: 'center',
@@ -66,7 +100,7 @@ const styles = StyleSheet.create({
   },
 
   floatingButtonStyle: {
-    width: '25%',
+    width: '20%',
     height: 50,
     backgroundColor: '#222222',
   },
