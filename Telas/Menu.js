@@ -1,24 +1,28 @@
-import React from 'react';
+import React , {Component} from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import Icon from '@expo/vector-icons/Ionicons';
 import { auth } from '../firebase';
+const Stack = createStackNavigator();
 
-const Menu = ({ navigation }) => {
-  const Deslogar = () => {
+
+export default class Menu extends Component{
+  
+  deslogar = () => {
     auth
       .signOut()
       .then(() => {
-        navigation.navigate('Login');
+        this.props.navigation.navigate('Login');
       })
       .catch((error) => alert(error.message));
   };
-
+ render(){
   return (
     <View style={styles.menu}>
       <View style={styles.touchableOpacityStyle}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Veiculo')}
+          onPress={() => this.props.navigation.navigate('Veiculo')}
           style={styles.floatingButtonStyle}>
           <View style={styles.menuboxicones}>
             <Icon name="car" size={30} style={styles.menuicones} />
@@ -26,7 +30,7 @@ const Menu = ({ navigation }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('Marcados')}
+          onPress={() => this.props.navigation.navigate('Marcados')}
           style={styles.floatingButtonStyle}>
           <View style={styles.menuboxicones}>
             <Icon name="calendar" size={30} style={styles.menuicones} />
@@ -50,7 +54,7 @@ const Menu = ({ navigation }) => {
           <View style={styles.menuboxicones}>
             <Icon
               name="log-out"
-              onPress={Deslogar}
+              onPress={this.deslogar}
               size={30}
               style={styles.menuicones}
             />
@@ -59,9 +63,9 @@ const Menu = ({ navigation }) => {
       </View>
     </View>
   );
-};
+ }
+}
 
-export default Menu;
 
 const styles = StyleSheet.create({
   menu: {
