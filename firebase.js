@@ -1,15 +1,16 @@
 import firebase from "firebase";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyATp0sV2OslW5J0lHvVS_FURUXQiBiuESU",
-  authDomain: "chave-roda-815d0.firebaseapp.com",
-  projectId: "chave-roda-815d0",
-  storageBucket: "chave-roda-815d0.appspot.com",
-  messagingSenderId: "258179667269",
-  appId: "1:258179667269:web:14ff1bdf56bd2664e89a2c"
+  apiKey: "AIzaSyA462nK0oDg0h96Y0oVZQdy61KcH1hlxeo",
+  authDomain: "chave-de-roda-vmas.firebaseapp.com",
+  projectId: "chave-de-roda-vmas",
+  storageBucket: "chave-de-roda-vmas.appspot.com",
+  messagingSenderId: "185876852873",
+  appId: "1:185876852873:web:cc24b6b2c07a132d605658"
 };
 
 // Initialize Firebase
@@ -21,5 +22,6 @@ if (!firebase.apps.length) {
 }
 
 const auth = firebase.auth()
-
+const banco = firebase.firestore();
 export { auth };
+export {banco} 

@@ -20,7 +20,7 @@ const Senha = ({ navigation }) => {
       style={styles.main}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}>
-      <Image style={styles.logo} source={require('../../Imagens/Logo.svg')}/>
+      <Image style={styles.logo} source={require('../../Imagens/Logo.svg')} />
       <Text style={styles.titulo}>Esqueceu a senha?</Text>
       <Text style={styles.texto}>
         Insira seu e-mail e a nova senha da conta.

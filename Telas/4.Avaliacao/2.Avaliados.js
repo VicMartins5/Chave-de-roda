@@ -1,29 +1,20 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
-
-import Icon from '@expo/vector-icons/Ionicons';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 
 import Menu from '../Menu.js';
 
-const Avaliados = ({ navigation }) => {
+const Avaliados = () => {
   return (
     <ScrollView
       style={styles.main}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}>
-      
       <Menu />
 
       <View style={{ paddingHorizontal: '10%' }}>
         <Text style={styles.titulo}>Serviços avaliados</Text>
 
-                <View style={styles.avaliados}>
+        <View style={styles.avaliados}>
           <View
             style={[
               styles.info,
@@ -99,16 +90,6 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontWeight: 'bold',
     fontSize: 12,
-    color: '#ffa500',
-  },
-
-  gpicones: {
-    flexDirection: 'row',
-    width: '40%',
-    flexWrap: 'wrap',
-  },
-
-  icones: {
     color: '#ffa500',
   },
 });

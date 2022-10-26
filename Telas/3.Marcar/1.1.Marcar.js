@@ -10,9 +10,82 @@ import {
 
 import Icon from '@expo/vector-icons/Ionicons';
 import MaskInput from 'react-native-mask-input';
+import { banco } from '../../firebase';
 
-const Marcar = ({ navigation }) => {
-  const [date, setDate] = React.useState('');
+const Marcar = ({ navigation, route }) => {
+  const { servico } = route.params;
+  const [veiculo, setVeiculo] = React.useState('');
+  const [descricao, setDescricao] = React.useState('');
+  const [data, setData] = React.useState('');
+ 
+  const Marcar = () => {
+    dataret = 0;
+    if(servico == "Carro - Troca de óleo" || servico == "Moto - Troca de óleo") {
+      dataret = data;
+    }
+    
+    else {
+      var dia = data.substring(0, 2);
+      var mes = data.substring(3, 5);
+      var ano = data.substring(6, 10);
+      dia = parseInt(dia, 10);
+      mes = parseInt(mes, 10);
+      ano = parseInt(ano, 10);
+
+      if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) {
+        if (dia == 31) {
+          dia = 1;
+          if (mes == 12) {
+            mes = 1;
+            ano = ano + 1
+          }
+
+          else {
+            mes = mes + 1
+          }
+        }
+
+        else {
+          dia = dia + 1;
+        }
+      }
+
+      if (mes == 4 || mes == 6 || mes == 7 || mes == 11) {
+        if (dia == 30) {
+          dia = 1;
+          mes = mes + 1;
+        }
+
+        else {
+          dia = dia + 1;
+        }
+      }
+
+      if (mes == 2) {
+        if (dia == 28) {
+          dia = 1;
+          mes = mes + 1
+        }
+        
+        else {
+          dia = dia + 1;
+        }
+      }
+
+      if (dia < 10) {
+        dia = "0" + dia;
+      }
+
+      if (mes < 10) {
+        mes = "0" + mes
+      }
+      
+      dataret = dia + "/" + mes + "/" + ano;
+    }
+
+
+    navigation.navigate('Marcado', { dataretor: dataret })
+  };
 
   return (
     <ScrollView
@@ -23,11 +96,18 @@ const Marcar = ({ navigation }) => {
 
       <View style={styles.gpcampos}>
         <View style={styles.boxicones}>
+          <Icon name="build" size={15} style={styles.icones} />
+        </View>
+        <Text style={styles.campos}>{servico}</Text>
+
+        <View style={styles.boxicones}>
           <Icon name="car" size={15} style={styles.icones} />
         </View>
         <TextInput
           style={styles.campos}
           placeholder={'Modelo'}
+          onChangeText={setVeiculo}
+          value={veiculo}
           keyboardType={'text'}></TextInput>
 
         <View style={[styles.boxicones, { alignItems: 'top', paddingTop: 13 }]}>
@@ -38,6 +118,8 @@ const Marcar = ({ navigation }) => {
           placeholder={'Descrição do serviço'}
           keyboardType={'text'}
           multiline={true}
+          onChangeText={setDescricao}
+          value={descricao}
           numberOfLines={4}></TextInput>
 
         <View style={styles.boxicones}>
@@ -46,9 +128,9 @@ const Marcar = ({ navigation }) => {
         <MaskInput
           style={styles.campos}
           placeholder={'Data'}
-          value={date}
+          value={data}
           onChangeText={(masked, unmasked) => {
-            setDate(masked);
+            setData(masked);
           }}
           mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
         />
@@ -67,7 +149,7 @@ const Marcar = ({ navigation }) => {
 
           <TouchableOpacity
             style={styles.login}
-            onPress={() => navigation.navigate('Marcado')}>
+            onPress={Marcar}>
             <Text style={[styles.txtlogin, { color: '#222222' }]}>Marcar</Text>
             <Icon
               name="person-add"

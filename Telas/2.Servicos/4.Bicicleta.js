@@ -16,13 +16,12 @@ const Veiculo = ({ navigation }) => {
       style={styles.main}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}>
-      
-      <Menu/>
+      <Menu />
 
       <View style={{ paddingHorizontal: '10%' }}>
         <Text style={styles.titulo}>Selecione o serviço</Text>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Marcar')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Marcar', { servico: 'Bicicleta - Revisao' })}>
           <ImageBackground
             style={styles.card}
             imageStyle={{ borderRadius: 10 }}
@@ -31,7 +30,7 @@ const Veiculo = ({ navigation }) => {
           </ImageBackground>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Marcar')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Marcar', { servico: 'Bicicleta - Alinhamento' })}>
           <ImageBackground
             style={styles.card}
             imageStyle={{ borderRadius: 10 }}
@@ -40,7 +39,7 @@ const Veiculo = ({ navigation }) => {
           </ImageBackground>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Marcar')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Marcar', { servico: 'Bicicleta - Freio' })}>
           <ImageBackground
             style={styles.card}
             imageStyle={{ borderRadius: 10 }}
@@ -49,7 +48,7 @@ const Veiculo = ({ navigation }) => {
           </ImageBackground>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Marcar')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Marcar', { servico: 'Bicicleta - Outros' })}>
           <ImageBackground
             style={styles.card}
             imageStyle={{ borderRadius: 10 }}

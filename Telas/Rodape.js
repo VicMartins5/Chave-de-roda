@@ -7,8 +7,6 @@ import {
   Linking,
 } from 'react-native';
 
-import Icon from '@expo/vector-icons/Ionicons';
-
 const Rodape = () => {
   return (
     <View style={styles.main}>

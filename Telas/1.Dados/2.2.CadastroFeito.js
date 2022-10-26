@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {
   StyleSheet,
   Text,
   Image,
   Dimensions,
-  ScrollView,
+  ScrollView
 } from 'react-native';
 
 var width = Dimensions.get('window').width;
@@ -23,7 +23,7 @@ const CadastroFeito = ({ navigation }) => {
       style={styles.main}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}>
-      <Image style={styles.logo} source={require('../../Imagens/Logo.svg')}/>
+      <Image style={styles.logo} source={require('../../Imagens/Logo.svg')} />
       <Text style={styles.titulo}>Cadastro realizado com sucesso.</Text>
     </ScrollView>
   );

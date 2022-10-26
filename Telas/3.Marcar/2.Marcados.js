@@ -17,7 +17,6 @@ const Marcados = ({ navigation }) => {
       style={styles.main}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}>
-      
       <Menu />
 
       <View style={{ paddingHorizontal: '10%' }}>
@@ -40,51 +39,11 @@ const Marcados = ({ navigation }) => {
             </Text>
             <View style={styles.gpicones}>
               <TouchableOpacity>
-                <Icon name="create" size={15} style={styles.icones} />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Icon name="trash" size={15} style={styles.icones} />
-              </TouchableOpacity>
-              <TouchableOpacity>
                 <Icon
                   name="star"
                   size={15}
                   style={styles.icones}
                   onPress={() => navigation.navigate('Avaliar')}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-
-        <View style={styles.marcados}>
-          <View
-            style={[
-              styles.info,
-              { borderBottomColor: '#ffa500', borderBottomWidth: 1 },
-            ]}>
-            <Text style={styles.veiculo}>Carro</Text>
-            <Text style={styles.data}>16/11/2022</Text>
-          </View>
-
-          <View style={styles.info}>
-            <Text style={styles.desc}>
-              Serviço de suspensão, pastilhas, troca de óleo, troca de filtros,
-              revisão geral.
-            </Text>
-            <View style={styles.gpicones}>
-              <TouchableOpacity>
-                <Icon name="create" size={15} style={styles.icones} />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Icon name="trash" size={15} style={styles.icones} />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Icon
-                  name="star"
-                  size={15}
-                  style={styles.icones}
-                  onPress={() => navigation.navigate('Avaliado')}
                 />
               </TouchableOpacity>
             </View>

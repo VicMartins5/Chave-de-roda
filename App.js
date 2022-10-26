@@ -1,7 +1,5 @@
 import * as React from 'react';
-import {
-  View
-} from 'react-native';
+import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -11,12 +9,10 @@ import CadastroFeito from './Telas/1.Dados/2.2.CadastroFeito';
 import Senha from './Telas/1.Dados/3.1.Senha';
 import SenhaAlterada from './Telas/1.Dados/3.2.SenhaAlterada';
 
-
 import Veiculo from './Telas/2.Servicos/1.Veiculo';
 import Carro from './Telas/2.Servicos/2.Carro';
 import Moto from './Telas/2.Servicos/3.Moto';
 import Bicicleta from './Telas/2.Servicos/4.Bicicleta';
-
 
 import Marcar from './Telas/3.Marcar/1.1.Marcar';
 import Marcado from './Telas/3.Marcar/1.2.Marcado';
@@ -34,10 +30,9 @@ import Rodape from './Telas/Rodape';
 const Stack = createStackNavigator();
 
 export default function App() {
-  
   return (
     <NavigationContainer>
-      <Stack.Navigator headerMode="none" initialRouteName="Login">
+      <Stack.Navigator headerMode="none" initialRouteName="Veiculo">
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Cadastro" component={Cadastro} />
         <Stack.Screen name="CadastroFeito" component={CadastroFeito} />
@@ -54,7 +49,7 @@ export default function App() {
         <Stack.Screen name="Marcados" component={Marcados} />
 
         <Stack.Screen name="Avaliar" component={Avaliar} />
-        <Stack.Screen name="Avaliado" component={Avaliado}/>
+        <Stack.Screen name="Avaliado" component={Avaliado} />
         <Stack.Screen name="Avaliados" component={Avaliados} />
 
         <Stack.Screen name="Dados" component={Dados} />

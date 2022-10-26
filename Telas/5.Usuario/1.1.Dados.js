@@ -22,8 +22,7 @@ const Dados = ({ navigation }) => {
       style={styles.main}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}>
-  
-      <Menu/>
+      <Menu />
 
       <Text style={styles.titulo}>Informações do usuário</Text>
 
@@ -83,20 +82,9 @@ const Dados = ({ navigation }) => {
           onChangeText={(masked, unmasked) => {
             setCep(masked);
           }}
-          mask={[
-            /\d/,
-            /\d/,
-            /\d/,
-            /\d/,
-            /\d/,
-            '-',
-            /\d/,
-            /\d/,
-            /\d/,
-          ]}
+          mask={[/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/]}
         />
       </View>
-      
 
       <View style={styles.gpbtt}>
         <TouchableOpacity

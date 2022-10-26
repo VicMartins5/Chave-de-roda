@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {
   StyleSheet,
   Text,
   Image,
   Dimensions,
-  ScrollView,
+  ScrollView
 } from 'react-native';
 
 var width = Dimensions.get('window').width;

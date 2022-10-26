@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState} from 'react';
 import {
   Image,
   View,
@@ -16,16 +16,25 @@ import Icon from '@expo/vector-icons/Ionicons';
 var width = Dimensions.get('window').width;
 
 const Login = ({ navigation }) => {
-const [email, setEmail] = useState('');
-const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  var erro; 
 
-const Logar = () => {
+  const Logar = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         navigation.navigate('Veiculo');
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => erro = error.message);
+
+      if (erro === 'The email address is badly formatted.') {
+        alert("Formato de email incorreto.");
+      }
+
+      if (erro === 'The password is invalid or the user does not have a password.'){
+        alert("Senha ou usuário incorreto.");
+      }
   };
 
   return (
@@ -78,9 +87,7 @@ const Logar = () => {
             style={[styles.icones, styles.iconesbtt]}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.login}
-          onPress={Logar}>
+        <TouchableOpacity style={styles.login} onPress={Logar}>
           <Text style={styles.txtlogin}>Entrar</Text>
           <Icon
             name="log-in"

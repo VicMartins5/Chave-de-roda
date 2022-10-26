@@ -5,14 +5,14 @@ import Icon from '@expo/vector-icons/Ionicons';
 import { auth } from '../firebase';
 
 const Menu = ({ navigation }) => {
-    const Deslogar = () => {
-      auth
-        .signOut()
-        .then(() => {
-          navigation.navigate('Login');
-        })
-        .catch((error) => alert(error.message));
-    };
+  const Deslogar = () => {
+    auth
+      .signOut()
+      .then(() => {
+        navigation.navigate('Login');
+      })
+      .catch((error) => alert(error.message));
+  };
 
   return (
     <View style={styles.menu}>
@@ -42,14 +42,6 @@ const Menu = ({ navigation }) => {
               size={30}
               style={styles.menuicones}
             />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Dados')}
-          style={styles.floatingButtonStyle}>
-          <View style={styles.menuboxicones}>
-            <Icon name="settings" size={30} style={styles.menuicones} />
           </View>
         </TouchableOpacity>
 
@@ -100,7 +92,7 @@ const styles = StyleSheet.create({
   },
 
   floatingButtonStyle: {
-    width: '20%',
+    width: '25%',
     height: 50,
     backgroundColor: '#222222',
   },

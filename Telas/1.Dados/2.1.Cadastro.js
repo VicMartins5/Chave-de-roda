@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -14,18 +14,22 @@ import MaskInput from 'react-native-mask-input';
 import { auth } from '../../firebase';
 
 const Cadastro = ({ navigation }) => {
-  const [tel, setTel] = React.useState('');
-  const [cep, setCep] = React.useState('');
+  const [tel, setTel] = useState('');
+  const [cep, setCep] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const Cadastrar = () => {
+    firebase.database().ref('users/').set({
+      username: "name",
+      email: "email",
+      profile_picture: "imageUrl"
+    });
+
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log('Registrado como:', user.email);
-        navigation.navigate('Login');
+        navigation.navigate('CadastroFeito');
       })
       .catch((error) => alert(error.message));
   };
@@ -39,14 +43,6 @@ const Cadastro = ({ navigation }) => {
 
       <View style={styles.gpcampos}>
         <View style={styles.boxicones}>
-          <Icon name="person" size={15} style={styles.icones} />
-        </View>
-        <TextInput
-          style={styles.campos}
-          placeholder={'Nome'}
-          keyboardType={'text'}></TextInput>
-
-        <View style={styles.boxicones}>
           <Icon name="mail" size={15} style={styles.icones} />
         </View>
         <TextInput
@@ -55,58 +51,6 @@ const Cadastro = ({ navigation }) => {
           value={email}
           onChangeText={(text) => setEmail(text)}
           keyboardType={'text'}></TextInput>
-
-        <View style={styles.boxicones}>
-          <Icon name="map" size={15} style={styles.icones} />
-        </View>
-        <MaskInput
-          style={styles.campos}
-          placeholder={'CEP'}
-          value={cep}
-          onChangeText={(masked, unmasked) => {
-            setCep(masked);
-          }}
-          mask={[
-            /\d/,
-            /\d/,
-            /\d/,
-            /\d/,
-            /\d/,
-            '-',
-            /\d/,
-            /\d/,
-            /\d/,
-          ]}
-        />
-
-        <View style={styles.boxicones}>
-          <Icon name="call" size={15} style={styles.icones} />
-        </View>
-        <MaskInput
-          style={styles.campos}
-          placeholder={'Telefone'}
-          value={tel}
-          onChangeText={(masked, unmasked) => {
-            setTel(masked);
-          }}
-          mask={[
-            '(',
-            /\d/,
-            /\d/,
-            ')',
-            ' ',
-            /\d/,
-            /\d/,
-            /\d/,
-            /\d/,
-            /\d/,
-            '-',
-            /\d/,
-            /\d/,
-            /\d/,
-            /\d/,
-          ]}
-        />
 
         <View style={styles.boxicones}>
           <Icon name="key" size={15} style={styles.icones} />
@@ -131,9 +75,7 @@ const Cadastro = ({ navigation }) => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.login}
-          onPress={Cadastrar}>
+        <TouchableOpacity style={styles.login} onPress={Cadastrar}>
           <Text style={[styles.txtlogin, { color: '#222222' }]}>
             Cadastrar-se
           </Text>
