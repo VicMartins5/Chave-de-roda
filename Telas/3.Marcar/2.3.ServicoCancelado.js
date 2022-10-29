@@ -3,10 +3,10 @@ import { StyleSheet, Text, Image, Dimensions, ScrollView } from 'react-native';
 
 var width = Dimensions.get('window').width;
 
-const SenhaAlterada = ({ navigation }) => {
+const ServicoCancelado = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('Login');
+      navigation.navigate('Marcados');
     }, 2000);
   },);
 
@@ -16,12 +16,12 @@ const SenhaAlterada = ({ navigation }) => {
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}>
       <Image style={styles.logo} source={require('../../Imagens/Logo.svg')} />
-      <Text style={styles.titulo}>Senha alterada com sucesso.</Text>
+      <Text style={styles.titulo}>Serviço cancelado com sucesso.</Text>
     </ScrollView>
   );
 };
 
-export default SenhaAlterada;
+export default ServicoCancelado;
 
 const styles = StyleSheet.create({
   main: {

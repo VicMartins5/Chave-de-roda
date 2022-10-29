@@ -21,7 +21,7 @@ const Veiculo = ({ navigation }) => {
       <View style={{ paddingHorizontal: '10%' }}>
         <Text style={styles.titulo}>Selecione o veículo</Text>
 
-        <TouchableOpacity onPress={() => this.navigation.navigate('Carro')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Carro')}>
           <ImageBackground
             style={styles.card}
             imageStyle={{ borderRadius: 10 }}
@@ -48,7 +48,8 @@ const Veiculo = ({ navigation }) => {
           </ImageBackground>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Marcar', { servico: 'Outros' })}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Marcar', { servico: 'Outros' })}>
           <ImageBackground
             style={styles.card}
             imageStyle={{ borderRadius: 10 }}

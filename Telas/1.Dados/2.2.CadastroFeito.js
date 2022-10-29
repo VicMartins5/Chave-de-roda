@@ -1,22 +1,14 @@
-import React, {useEffect} from 'react';
-import {
-  StyleSheet,
-  Text,
-  Image,
-  Dimensions,
-  ScrollView
-} from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, Image, Dimensions, ScrollView } from 'react-native';
 
 var width = Dimensions.get('window').width;
 
 const CadastroFeito = ({ navigation }) => {
-  current = 0;
-
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate('Login');
-    }, 2000);
-  }, [current]);
+    }, 1000);
+  },);
 
   return (
     <ScrollView

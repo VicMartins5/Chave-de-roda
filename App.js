@@ -16,7 +16,9 @@ import Bicicleta from './Telas/2.Servicos/4.Bicicleta';
 
 import Marcar from './Telas/3.Marcar/1.1.Marcar';
 import Marcado from './Telas/3.Marcar/1.2.Marcado';
-import Marcados from './Telas/3.Marcar/2.Marcados';
+import Marcados from './Telas/3.Marcar/2.1.Marcados';
+import Cancelar from './Telas/3.Marcar/2.2.CancelarServico';
+import Cancelado from './Telas/3.Marcar/2.3.ServicoCancelado';
 
 import Avaliar from './Telas/4.Avaliacao/1.1.Avaliar';
 import Avaliado from './Telas/4.Avaliacao/1.2.Avaliado';
@@ -32,7 +34,7 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator headerMode="none" initialRouteName="Veiculo">
+      <Stack.Navigator headerMode="none" initialRouteName="Login">
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Cadastro" component={Cadastro} />
         <Stack.Screen name="CadastroFeito" component={CadastroFeito} />
@@ -47,6 +49,8 @@ export default function App() {
         <Stack.Screen name="Marcar" component={Marcar} />
         <Stack.Screen name="Marcado" component={Marcado} />
         <Stack.Screen name="Marcados" component={Marcados} />
+        <Stack.Screen name="Cancelar" component={Cancelar} />
+        <Stack.Screen name="Cancelado" component={Cancelado} />
 
         <Stack.Screen name="Avaliar" component={Avaliar} />
         <Stack.Screen name="Avaliado" component={Avaliado} />

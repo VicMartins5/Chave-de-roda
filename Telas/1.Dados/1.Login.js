@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Image,
   View,
@@ -17,24 +17,30 @@ var width = Dimensions.get('window').width;
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  var erro; 
+  const [senha, setSenha] = useState('');
+  var erro;
 
   const Logar = () => {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        navigation.navigate('Veiculo');
-      })
-      .catch((error) => erro = error.message);
+    if (senha == '' || email == '') {
+      alert('Um ou mais campos obrigatórios vázios.');
+    } else {
+      auth
+        .signInWithEmailAndPassword(email, senha)
+        .then(() => {
+          navigation.navigate('Veiculo');
+        })
+        .catch((error) => (erro = error.message));
 
       if (erro === 'The email address is badly formatted.') {
-        alert("Formato de email incorreto.");
+        alert('Formato de email incorreto.');
       }
 
-      if (erro === 'The password is invalid or the user does not have a password.'){
-        alert("Senha ou usuário incorreto.");
+      if (
+        erro === 'The password is invalid or the user does not have a password.'
+      ) {
+        alert('Senha ou usuário incorreto.');
       }
+    }
   };
 
   return (
@@ -62,8 +68,8 @@ const Login = ({ navigation }) => {
         <TextInput
           style={styles.campos}
           placeholder={'Senha'}
-          value={password}
-          onChangeText={(text) => setPassword(text)}
+          value={senha}
+          onChangeText={(text) => setSenha(text)}
           secureTextEntry={true}
         />
       </View>

@@ -1,9 +1,54 @@
-import React from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  FlatList,
+} from 'react-native';
 
+import { banco, auth } from '../../firebase';
 import Menu from '../Menu.js';
 
 const Avaliados = () => {
+  const usuario = auth.currentUser.email;
+
+  let dados = [];
+
+  const [data, setData] = useState([]);
+
+  const ServicosAvaliados = () => {
+    banco
+      .collection('Servicos')
+      .where('usuario', '==', usuario)
+      .where('avaliado', '==', true)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const info = {
+            veiculo: doc.data().veiculo,
+            data: doc.data().data,
+            servico: doc.data().servico,
+            dataserv: new Date(
+              (ano = parseInt(doc.data().data.substring(6, 10), 10)),
+              parseInt(doc.data().data.substring(3, 5), 10) - 1,
+              parseInt(doc.data().data.substring(0, 2), 10)
+            ),
+            avaliacao: doc.data().avaliacao,
+          };
+          dados.push(info);
+        });
+
+        dados.sort((a, b) => (a.dataserv < b.dataserv ? 1 : -1));
+
+        setData(dados);
+      });
+  };
+
+  useEffect(() => {
+    ServicosAvaliados();
+  },);
+
   return (
     <ScrollView
       style={styles.main}
@@ -14,22 +59,33 @@ const Avaliados = () => {
       <View style={{ paddingHorizontal: '10%' }}>
         <Text style={styles.titulo}>Serviços avaliados</Text>
 
-        <View style={styles.avaliados}>
-          <View
-            style={[
-              styles.info,
-              { borderBottomColor: '#ffa500', borderBottomWidth: 1 },
-            ]}>
-            <Text style={styles.veiculo}>Carro</Text>
-            <Text style={styles.data}>16/11/2022</Text>
-          </View>
+        <FlatList
+          data={data}
+          renderItem={({ item }) => (
+            <View style={styles.marcados}>
+              <View
+                style={[
+                  styles.info,
+                  { borderBottomColor: '#ffa500', borderBottomWidth: 1 },
+                ]}>
+                <Text style={styles.veiculo}>{item.veiculo}</Text>
+                <Text style={styles.data}>{item.data}</Text>
+              </View>
 
-          <View style={styles.info}>
-            <Text style={styles.desc}>
-              Atendimento de qualidade, rápido e barato.
-            </Text>
-          </View>
-        </View>
+              <View
+                style={[
+                  styles.info,
+                  { borderBottomColor: '#ffa500', borderBottomWidth: 1 },
+                ]}>
+                <Text style={styles.desc}>{item.servico}</Text>
+              </View>
+
+              <View style={styles.info}>
+                <Text style={styles.desc}>{item.avaliacao}</Text>
+              </View>
+            </View>
+          )}
+        />
       </View>
     </ScrollView>
   );
@@ -52,13 +108,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
-  avaliados: {
+  marcados: {
     backgroundColor: '#383838',
     borderRadius: 10,
     marginBottom: 20,
     width: '100%',
     height: 'auto',
     flex: 1,
+    alignItems: 'top',
   },
 
   info: {
@@ -86,7 +143,7 @@ const styles = StyleSheet.create({
   },
 
   desc: {
-    width: '90%',
+    width: '100%',
     textAlign: 'left',
     fontWeight: 'bold',
     fontSize: 12,

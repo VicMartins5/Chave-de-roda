@@ -10,7 +10,26 @@ import {
 
 import Icon from '@expo/vector-icons/Ionicons';
 
-const Avalicao = ({ navigation }) => {
+import { banco } from '../../firebase';
+
+const Avalicao = ({ navigation, route }) => {
+  const { id, veiculo, servico, data } = route.params;
+
+  const [avaliacao, setAvaliacao] = React.useState('');
+
+  const Avaliar = () => {
+    banco
+      .collection('Servicos')
+      .doc(id)
+      .update({
+        avaliacao: avaliacao,
+        avaliado: true,
+      })
+      .then(() => {
+        navigation.navigate('Avaliado');
+      });
+  };
+
   return (
     <ScrollView
       style={styles.main}
@@ -19,6 +38,21 @@ const Avalicao = ({ navigation }) => {
       <Text style={styles.titulo}>Avalie o serviço</Text>
 
       <View style={styles.gpcampos}>
+        <View style={styles.boxicones}>
+          <Icon name="build" size={15} style={styles.icones} />
+        </View>
+        <Text style={styles.campos}>{servico}</Text>
+
+        <View style={styles.boxicones}>
+          <Icon name="car" size={15} style={styles.icones} />
+        </View>
+        <Text style={styles.campos}>{veiculo}</Text>
+
+        <View style={styles.boxicones}>
+          <Icon name="calendar" size={15} style={styles.icones} />
+        </View>
+        <Text style={styles.campos}>{data}</Text>
+
         <View style={[styles.boxicones, { alignItems: 'top', paddingTop: 13 }]}>
           <Icon name="star" size={15} style={styles.icones} />
         </View>
@@ -27,6 +61,8 @@ const Avalicao = ({ navigation }) => {
           placeholder={'Avalie o serviço'}
           keyboardType={'text'}
           multiline={true}
+          onChangeText={setAvaliacao}
+          value={avaliacao}
           numberOfLines={4}></TextInput>
       </View>
 
@@ -42,9 +78,7 @@ const Avalicao = ({ navigation }) => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.botao}
-          onPress={() => navigation.navigate('Avaliado')}>
+        <TouchableOpacity style={styles.botao} onPress={Avaliar}>
           <Text style={[styles.txtbotao, { color: '#222222' }]}>Avaliar</Text>
           <Icon
             name="star"

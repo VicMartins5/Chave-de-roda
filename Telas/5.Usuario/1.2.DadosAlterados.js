@@ -1,11 +1,5 @@
-import React, {useEffect} from 'react';
-import {
-  StyleSheet,
-  Text,
-  Image,
-  Dimensions,
-  ScrollView
-} from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, Image, Dimensions, ScrollView } from 'react-native';
 
 var width = Dimensions.get('window').width;
 
@@ -16,7 +10,7 @@ const SenhaAlterada = ({ navigation }) => {
     setTimeout(() => {
       navigation.navigate('Veiculo');
     }, 2000);
-  }, [current]);
+  },);
 
   return (
     <ScrollView

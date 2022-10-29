@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -9,29 +9,29 @@ import {
 } from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
-import MaskInput from 'react-native-mask-input';
 
 import { auth } from '../../firebase';
 
 const Cadastro = ({ navigation }) => {
-  const [tel, setTel] = useState('');
-  const [cep, setCep] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [senha, setSenha] = useState('');
+  var erro;
 
   const Cadastrar = () => {
-    firebase.database().ref('users/').set({
-      username: "name",
-      email: "email",
-      profile_picture: "imageUrl"
-    });
+    if (email == '' || senha == '') {
+      alert('Campo de senha ou email vazios.');
+    } else {
+      auth
+        .createUserWithEmailAndPassword(email, senha)
+        .then((userCredentials) => {
+          navigation.navigate('CadastroFeito');
+        })
+        .catch((error) => (erro = error.message));
 
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        navigation.navigate('CadastroFeito');
-      })
-      .catch((error) => alert(error.message));
+      if (erro === 'Password should be at least 6 characters.') {
+        alert('Senha precisa ter ao menos 6 caracteres.');
+      }
+    }
   };
 
   return (
@@ -58,8 +58,8 @@ const Cadastro = ({ navigation }) => {
         <TextInput
           style={styles.campos}
           placeholder={'Senha'}
-          value={password}
-          onChangeText={(text) => setPassword(text)}
+          value={senha}
+          onChangeText={(text) => setSenha(text)}
           secureTextEntry={true}></TextInput>
       </View>
 

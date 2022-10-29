@@ -21,7 +21,10 @@ const Veiculo = ({ navigation }) => {
       <View style={{ paddingHorizontal: '10%' }}>
         <Text style={styles.titulo}>Selecione o serviço</Text>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Marcar', { servico: 'Moto - Troca de óleo' })}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('Marcar', { servico: 'Moto - Troca de óleo' })
+          }>
           <ImageBackground
             style={styles.card}
             imageStyle={{ borderRadius: 10 }}
@@ -30,7 +33,10 @@ const Veiculo = ({ navigation }) => {
           </ImageBackground>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Marcar', { servico: 'Moto - Revisão' })}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('Marcar', { servico: 'Moto - Revisão' })
+          }>
           <ImageBackground
             style={styles.card}
             imageStyle={{ borderRadius: 10 }}
@@ -39,7 +45,10 @@ const Veiculo = ({ navigation }) => {
           </ImageBackground>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Marcar', { servico: 'Moto - Suspensão' })}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('Marcar', { servico: 'Moto - Suspensão' })
+          }>
           <ImageBackground
             style={styles.card}
             imageStyle={{ borderRadius: 10 }}
@@ -48,7 +57,10 @@ const Veiculo = ({ navigation }) => {
           </ImageBackground>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Marcar', { servico: 'Moto - Outros' })}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('Marcar', { servico: 'Moto - Outros' })
+          }>
           <ImageBackground
             style={styles.card}
             imageStyle={{ borderRadius: 10 }}

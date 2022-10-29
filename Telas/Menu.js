@@ -1,14 +1,9 @@
-import React , {Component} from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import Icon from '@expo/vector-icons/Ionicons';
 import { auth } from '../firebase';
-const Stack = createStackNavigator();
 
-
-export default class Menu extends Component{
-  
+export default class Menu extends Component {
   deslogar = () => {
     auth
       .signOut()
@@ -17,55 +12,54 @@ export default class Menu extends Component{
       })
       .catch((error) => alert(error.message));
   };
- render(){
-  return (
-    <View style={styles.menu}>
-      <View style={styles.touchableOpacityStyle}>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Veiculo')}
-          style={styles.floatingButtonStyle}>
-          <View style={styles.menuboxicones}>
-            <Icon name="car" size={30} style={styles.menuicones} />
-          </View>
-        </TouchableOpacity>
+  render() {
+    return (
+      <View style={styles.menu}>
+        <View style={styles.touchableOpacityStyle}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Veiculo')}
+            style={styles.floatingButtonStyle}>
+            <View style={styles.menuboxicones}>
+              <Icon name="car" size={30} style={styles.menuicones} />
+            </View>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Marcados')}
-          style={styles.floatingButtonStyle}>
-          <View style={styles.menuboxicones}>
-            <Icon name="calendar" size={30} style={styles.menuicones} />
-          </View>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Marcados')}
+            style={styles.floatingButtonStyle}>
+            <View style={styles.menuboxicones}>
+              <Icon name="calendar" size={30} style={styles.menuicones} />
+            </View>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[styles.floatingButtonStyle, { borderRightWidth: 0 }]}>
-          <View style={styles.menuboxicones}>
-            <Icon
-              name="star"
-              onPress={() => navigation.navigate('Avaliados')}
-              size={30}
-              style={styles.menuicones}
-            />
-          </View>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.floatingButtonStyle, { borderRightWidth: 0 }]}>
+            <View style={styles.menuboxicones}>
+              <Icon
+                name="star"
+                onPress={() => navigation.navigate('Avaliados')}
+                size={30}
+                style={styles.menuicones}
+              />
+            </View>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[styles.floatingButtonStyle, { borderRightWidth: 0 }]}>
-          <View style={styles.menuboxicones}>
-            <Icon
-              name="log-out"
-              onPress={this.deslogar}
-              size={30}
-              style={styles.menuicones}
-            />
-          </View>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.floatingButtonStyle, { borderRightWidth: 0 }]}>
+            <View style={styles.menuboxicones}>
+              <Icon
+                name="log-out"
+                onPress={this.deslogar}
+                size={30}
+                style={styles.menuicones}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
-  );
- }
+    );
+  }
 }
-
 
 const styles = StyleSheet.create({
   menu: {

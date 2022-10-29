@@ -1,24 +1,16 @@
-import React, {useEffect} from 'react';
-import {
-  StyleSheet,
-  Text,
-  Image,
-  Dimensions,
-  ScrollView
-} from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, Image, Dimensions, ScrollView } from 'react-native';
 
 var width = Dimensions.get('window').width;
 
 const Marcado = ({ navigation, route }) => {
   const { dataretor } = route.params;
 
-  current = 0;
-
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate('Marcados');
-    }, 4000);
-  }, [current]);
+    }, 2000);
+  },);
 
   return (
     <ScrollView
@@ -26,7 +18,10 @@ const Marcado = ({ navigation, route }) => {
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}>
       <Image style={styles.logo} source={require('../../Imagens/Logo.svg')} />
-      <Text style={styles.titulo}>Serviço marcado com sucesso. Data prevista para devolução do veículo: {dataretor}</Text>
+      <Text style={styles.titulo}>Serviço marcado com sucesso.</Text>
+      <Text style={[styles.titulo, { fontSize: '10', marginTop: 20 }]}>
+        Data prevista para devolução do veículo: {dataretor}
+      </Text>
     </ScrollView>
   );
 };
