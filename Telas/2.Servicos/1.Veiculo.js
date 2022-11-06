@@ -1,104 +1,113 @@
-import React from 'react';
 import {
   Text,
-  View,
-  StyleSheet,
   ImageBackground,
   TouchableOpacity,
   ScrollView,
+  View
 } from 'react-native';
 
-import Menu from '../Menu.js';
+import Icon from '@expo/vector-icons/Ionicons';
+
+import { auth } from '../../firebase';
+import estilos from '../0.Outros/Estilos'
 
 const Veiculo = ({ navigation }) => {
+  const Deslogar = () => {
+    auth
+      .signOut()
+      .then(() => {
+        navigation.navigate('Login');
+      })
+      .catch((error) => alert(error.message));
+  };
+
   return (
     <ScrollView
-      style={styles.main}
+      style={estilos.main_topo}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}>
-      <Menu />
 
-      <View style={{ paddingHorizontal: '10%' }}>
-        <Text style={styles.titulo}>Selecione o veículo</Text>
-
-        <TouchableOpacity onPress={() => navigation.navigate('Carro')}>
-          <ImageBackground
-            style={styles.card}
-            imageStyle={{ borderRadius: 10 }}
-            source={require('../../Imagens/Carro.jpg')}>
-            <Text style={styles.veiculo}>Carro</Text>
-          </ImageBackground>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate('Moto')}>
-          <ImageBackground
-            style={styles.card}
-            imageStyle={{ borderRadius: 10 }}
-            source={require('../../Imagens/Moto.jpg')}>
-            <Text style={styles.veiculo}>Moto</Text>
-          </ImageBackground>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate('Bicicleta')}>
-          <ImageBackground
-            style={styles.card}
-            imageStyle={{ borderRadius: 10 }}
-            source={require('../../Imagens/Bicicleta.jpg')}>
-            <Text style={styles.veiculo}>Bicicleta</Text>
-          </ImageBackground>
+      <View style={estilos.menu}>
+        <TouchableOpacity
+          style={estilos.menu_botao}>
+            <Icon
+              name="car"
+              size={25}
+              style={estilos.menu_icones}
+            />
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('Marcar', { servico: 'Outros' })}>
-          <ImageBackground
-            style={styles.card}
-            imageStyle={{ borderRadius: 10 }}
-            source={require('../../Imagens/Outros.jpg')}>
-            <Text style={styles.veiculo}>Diversos</Text>
-          </ImageBackground>
+          onPress={() => navigation.navigate('Marcados')}
+          style={estilos.menu_botao}>
+            <Icon
+              name="calendar"
+              size={25}
+              style={estilos.menu_icones}
+            />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Avaliados')}
+          style={estilos.menu_botao}>
+            <Icon
+              name="star"
+              size={25}
+              style={estilos.menu_icones}
+            />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={Deslogar}
+          style={estilos.menu_botao}>
+            <Icon
+              name="log-out"
+              size={25}
+              style={estilos.menu_icones}
+            />
         </TouchableOpacity>
       </View>
+
+      <Text style={estilos.titulo}>Selecione o veículo</Text>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Carro')}>
+        <ImageBackground
+          style={estilos.card}
+          imageStyle={{ borderRadius: 10 }}
+          source={require('../../Imagens/Carro.jpg')}>
+          <Text style={estilos.veiculo}>Carro</Text>
+        </ImageBackground>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Moto')}>
+        <ImageBackground
+          style={estilos.card}
+          imageStyle={{ borderRadius: 10 }}
+          source={require('../../Imagens/Moto.jpg')}>
+          <Text style={estilos.veiculo}>Moto</Text>
+        </ImageBackground>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Bicicleta')}>
+        <ImageBackground
+          style={estilos.card}
+          imageStyle={{ borderRadius: 10 }}
+          source={require('../../Imagens/Bicicleta.jpg')}>
+          <Text style={estilos.veiculo}>Bicicleta</Text>
+        </ImageBackground>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Marcar', { servico: 'Outros' })}>
+        <ImageBackground
+          style={estilos.card}
+          imageStyle={{ borderRadius: 10 }}
+          source={require('../../Imagens/Outros.jpg')}>
+          <Text style={estilos.veiculo}>Diversos</Text>
+        </ImageBackground>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
+
 export default Veiculo;
-
-const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    alignContent: 'center',
-    textAlign: 'center',
-    backgroundColor: '#222222',
-  },
-
-  titulo: {
-    color: '#ffa500',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    marginBottom: 20,
-  },
-
-  card: {
-    backgroundColor: '#383838',
-    marginBottom: 20,
-    width: '100%',
-    height: 200,
-    position: 'relative',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 50,
-  },
-
-  veiculo: {
-    width: '100%',
-    backgroundColor: 'rgba(56,56,56,0.8)',
-    color: '#ffa500',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    position: 'absolute',
-    bottom: 0,
-    paddingVertical: 1,
-  },
-});

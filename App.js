@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -23,9 +22,6 @@ import Cancelado from './Telas/3.Marcar/2.3.ServicoCancelado';
 import Avaliar from './Telas/4.Avaliacao/1.1.Avaliar';
 import Avaliado from './Telas/4.Avaliacao/1.2.Avaliado';
 import Avaliados from './Telas/4.Avaliacao/2.Avaliados';
-
-import Dados from './Telas/5.Usuario/1.1.Dados';
-import DadosAlterados from './Telas/5.Usuario/1.2.DadosAlterados';
 
 import Rodape from './Telas/Rodape';
 
@@ -55,9 +51,6 @@ export default function App() {
         <Stack.Screen name="Avaliar" component={Avaliar} />
         <Stack.Screen name="Avaliado" component={Avaliado} />
         <Stack.Screen name="Avaliados" component={Avaliados} />
-
-        <Stack.Screen name="Dados" component={Dados} />
-        <Stack.Screen name="DadosAlterados" component={DadosAlterados} />
       </Stack.Navigator>
 
       <View>

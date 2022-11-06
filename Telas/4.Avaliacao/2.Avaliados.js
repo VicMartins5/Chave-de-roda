@@ -2,15 +2,26 @@ import React, { useEffect, useState } from 'react';
 import {
   Text,
   View,
-  StyleSheet,
+  TouchableOpacity,
   ScrollView,
   FlatList,
 } from 'react-native';
 
-import { banco, auth } from '../../firebase';
-import Menu from '../Menu.js';
+import Icon from '@expo/vector-icons/Ionicons';
 
-const Avaliados = () => {
+import { banco, auth } from '../../firebase';
+import estilos from '../0.Outros/Estilos'
+
+const Avaliados = ({ navigation }) => {
+  const Deslogar = () => {
+    auth
+      .signOut()
+      .then(() => {
+        navigation.navigate('Login');
+      })
+      .catch((error) => alert(error.message));
+  };
+  
   const usuario = auth.currentUser.email;
 
   let dados = [];
@@ -29,6 +40,7 @@ const Avaliados = () => {
             veiculo: doc.data().veiculo,
             data: doc.data().data,
             servico: doc.data().servico,
+            descricao: doc.data().descricao,
             dataserv: new Date(
               (ano = parseInt(doc.data().data.substring(6, 10), 10)),
               parseInt(doc.data().data.substring(3, 5), 10) - 1,
@@ -51,102 +63,75 @@ const Avaliados = () => {
 
   return (
     <ScrollView
-      style={styles.main}
+      style={estilos.main_topo}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}>
-      <Menu />
 
-      <View style={{ paddingHorizontal: '10%' }}>
-        <Text style={styles.titulo}>Serviços avaliados</Text>
+      <Text style={estilos.titulo}>Serviços avaliados</Text>
 
-        <FlatList
-          data={data}
-          renderItem={({ item }) => (
-            <View style={styles.marcados}>
-              <View
-                style={[
-                  styles.info,
-                  { borderBottomColor: '#ffa500', borderBottomWidth: 1 },
-                ]}>
-                <Text style={styles.veiculo}>{item.veiculo}</Text>
-                <Text style={styles.data}>{item.data}</Text>
-              </View>
+      <View style={estilos.menu}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Veiculo')}
+          style={estilos.menu_botao}>
+            <Icon
+              name="car"
+              size={25}
+              style={estilos.menu_icones}
+            />
+        </TouchableOpacity>
 
-              <View
-                style={[
-                  styles.info,
-                  { borderBottomColor: '#ffa500', borderBottomWidth: 1 },
-                ]}>
-                <Text style={styles.desc}>{item.servico}</Text>
-              </View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Marcados')}
+          style={estilos.menu_botao}>
+            <Icon
+              name="calendar"
+              size={25}
+              style={estilos.menu_icones}
+            />
+        </TouchableOpacity>
 
-              <View style={styles.info}>
-                <Text style={styles.desc}>{item.avaliacao}</Text>
-              </View>
-            </View>
-          )}
-        />
+        <TouchableOpacity
+          style={estilos.menu_botao}>
+            <Icon
+              name="star"
+              size={25}
+              style={estilos.menu_icones}
+            />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={Deslogar}
+          style={estilos.menu_botao}>
+            <Icon
+              name="log-out"
+              size={25}
+              style={estilos.menu_icones}
+            />
+        </TouchableOpacity>
       </View>
+
+      <FlatList
+        data={data}
+        renderItem={({ item }) => (
+          <View style={estilos.marcados}>
+            <View style={estilos.marcados_info}>
+              <Text style={estilos.marcados_veiculo}>{item.veiculo}</Text>
+              <Text style={estilos.marcados_data}>{item.data}</Text>
+            </View>
+
+            <View
+              style={estilos.marcados_info}>
+              <Text style={estilos.marcados_descricao}>{item.servico}</Text>
+              <Text style={estilos.marcados_descricao}>{item.descricao}</Text>
+            </View>
+
+            <View style={estilos.marcados_info}>
+              <Text style={estilos.marcados_descricao}>{item.avaliacao}</Text>
+            </View>
+        </View>
+        )}
+      />
     </ScrollView>
   );
 };
 export default Avaliados;
-
-const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    alignContent: 'center',
-    textAlign: 'center',
-    backgroundColor: '#222222',
-  },
-
-  titulo: {
-    color: '#ffa500',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    marginBottom: 20,
-  },
-
-  marcados: {
-    backgroundColor: '#383838',
-    borderRadius: 10,
-    marginBottom: 20,
-    width: '100%',
-    height: 'auto',
-    flex: 1,
-    alignItems: 'top',
-  },
-
-  info: {
-    flexDirection: 'row',
-    width: '100%',
-    alignSelf: 'center',
-    flexWrap: 'wrap',
-    padding: 10,
-  },
-
-  veiculo: {
-    width: '40%',
-    textAlign: 'left',
-    fontWeight: 'bold',
-    fontSize: 12,
-    color: '#ffa500',
-  },
-
-  data: {
-    width: '60%',
-    textAlign: 'right',
-    fontWeight: 'bold',
-    fontSize: 12,
-    color: '#ffa500',
-  },
-
-  desc: {
-    width: '100%',
-    textAlign: 'left',
-    fontWeight: 'bold',
-    fontSize: 12,
-    color: '#ffa500',
-  },
-});
