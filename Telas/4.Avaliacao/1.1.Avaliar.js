@@ -18,16 +18,22 @@ const Avalicao = ({ navigation, route }) => {
   const [avaliacao, setAvaliacao] = React.useState('');
 
   const Avaliar = () => {
-    banco
-      .collection('Marcados')
-      .doc(id)
-      .update({
-        avaliacao: avaliacao,
-        avaliado: true,
-      })
-      .then(() => {
-        navigation.navigate('Avaliado');
-      });
+    if (avaliacao == "") {
+      alert("Campo de avaliação vazio.")
+    }
+    
+    else {
+      banco
+        .collection('Marcados')
+        .doc(id)
+        .update({
+          avaliacao: avaliacao,
+          avaliado: true,
+        })
+        .then(() => {
+          navigation.navigate('Avaliado');
+        });
+    }
   };
 
   return (

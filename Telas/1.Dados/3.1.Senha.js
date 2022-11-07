@@ -16,10 +16,15 @@ const Senha = ({ navigation }) => {
   const [email, setEmail] = useState('');
 
   const AlterarSenha = () => {
-    auth.sendPasswordResetEmail(email)
-      .then(() => {
-        navigation.navigate('SenhaAlterada');
-      })
+    if (email == "") {
+      alert("Campo de E-mail vazio.")
+    }
+    else {
+      auth.sendPasswordResetEmail(email)
+        .then(() => {
+          navigation.navigate('SenhaAlterada');
+        })
+    }
   };
 
   return (

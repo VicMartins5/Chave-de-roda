@@ -56,22 +56,20 @@ const Marcar = ({ navigation, route }) => {
       alert('Um ou mais input obrigatórios vázios.');
     } 
     
-    else if (dia > 28 || mes > 12) {
-      if (mes == 4 || mes == 6 || mes == 7 || mes == 11) {
-        if (dia > 30) {
-          alert("Data inválida!")
-        } 
-      }
+    else if ((mes == 4 || mes == 6 || mes == 7 || mes == 11) && dia > 30) {
+      alert("Data inválida!")
+    }
 
-      if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) {
-        if (dia > 31) {
-          alert("Data inválida!")
-        }
-      }
+    else if ((mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) && dia > 31) {
+      alert("Data inválida!")
+    }
 
-      if (mes == 2 && dia > 28) {
-        alert("Data inválida!")
-      }
+    else if (mes == 2 && dia > 28) {
+      alert("Data inválida!")
+    }
+
+    else if (minuto > 59) {
+      alert("Data inválida!")
     }
 
     else {
@@ -104,7 +102,7 @@ const Marcar = ({ navigation, route }) => {
       }
       
       else {
-        if (minuto < 10) {
+        if (minuto < 10 && minuto > 0) {
           minuto = '0' + minuto;
         }
 
@@ -139,7 +137,7 @@ const Marcar = ({ navigation, route }) => {
           hora = '0' + hora;
         }
 
-        if (minuto < 10) {
+        if (minuto < 10 && minuto > 0) {
           minuto = '0' + minuto;
         }
 
