@@ -20,23 +20,16 @@ const Login = ({ navigation }) => {
   const Logar = () => {
     if (senha == '' || email == '') {
       alert('Um ou mais campos obrigatórios vázios.');
-    } else {
+    } 
+    
+    else {
       auth
         .signInWithEmailAndPassword(email, senha)
         .then(() => {
           navigation.navigate('Veiculo');
         })
-        .catch((error) => (erro = error.message));
-
-      if (erro === 'The email address is badly formatted.') {
-        alert('Formato de email incorreto.');
-      }
-
-      if (
-        erro === 'The password is invalid or the user does not have a password.'
-      ) {
-        alert('Senha ou usuário incorreto.');
-      }
+        
+        .catch(error => alert(error.message))
     }
   };
 

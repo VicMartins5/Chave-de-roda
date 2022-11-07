@@ -10,7 +10,7 @@ import {
 import Icon from '@expo/vector-icons/Ionicons';
 import MaskInput from 'react-native-mask-input';
 
-import { auth } from '../../firebase';
+import { banco, auth } from '../../firebase';
 import estilos from '../0.Outros/Estilos'
 
 const Cadastro = ({ navigation }) => {
@@ -21,7 +21,7 @@ const Cadastro = ({ navigation }) => {
   const [confSenha, setConfSenha] = useState('');
 
   const Cadastrar = () => {
-    if (nome == ''|| email == '' || telefone == '' || senha == '' || confSenha == '') {
+    if (nome == ''|| email == '' || telefone == '' || senha == '' || confSenha == '' || telefone.length < 15) {
       alert('Um ou mais campos vazios.');
     }
     
@@ -47,7 +47,8 @@ const Cadastro = ({ navigation }) => {
               navigation.navigate('CadastroFeito');
             })
           })
-          .catch((error) => (erro = error.message));
+          
+          .catch(error => alert(error.message))
       }
     }
   };

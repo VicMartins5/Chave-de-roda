@@ -26,7 +26,6 @@ const Marcados = ({ navigation }) => {
   const usuario = auth.currentUser.email;
 
   let dados = [];
-
   const [data, setData] = useState([]);
 
   var dataatual = new Date(
@@ -37,7 +36,7 @@ const Marcados = ({ navigation }) => {
 
   const ServicosMarcados = () => {
     banco
-      .collection('Servicos')
+      .collection('Marcados')
       .where('usuario', '==', usuario)
       .get()
       .then((querySnapshot) => {

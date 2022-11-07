@@ -15,7 +15,7 @@ const CancelarServico = ({ navigation, route }) => {
 
   const Cancelar = () => {
     banco
-      .collection('Servicos')
+      .collection('Marcados')
       .doc(id)
       .delete()
       .then(() => {

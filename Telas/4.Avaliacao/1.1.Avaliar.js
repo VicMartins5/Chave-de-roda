@@ -19,7 +19,7 @@ const Avalicao = ({ navigation, route }) => {
 
   const Avaliar = () => {
     banco
-      .collection('Servicos')
+      .collection('Marcados')
       .doc(id)
       .update({
         avaliacao: avaliacao,

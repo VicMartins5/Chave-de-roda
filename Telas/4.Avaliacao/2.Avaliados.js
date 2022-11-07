@@ -30,7 +30,7 @@ const Avaliados = ({ navigation }) => {
 
   const ServicosAvaliados = () => {
     banco
-      .collection('Servicos')
+      .collection('Marcados')
       .where('usuario', '==', usuario)
       .where('avaliado', '==', true)
       .get()

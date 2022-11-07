@@ -15,9 +15,7 @@ import estilos from '../0.Outros/Estilos'
 
 const Marcar = ({ navigation, route }) => {
   const usuario = auth.currentUser.email;
-  servico = route.params;
-
-  servico = "Carro - Troca de óleo";
+  const { servico } = route.params;
 
   const [veiculo, setVeiculo] = React.useState('');
   const [descricao, setDescricao] = React.useState('');
@@ -26,31 +24,26 @@ const Marcar = ({ navigation, route }) => {
   const [avaliacao] = useState('');
 
   const Marcar = () => {
+    dia = parseInt(data.substring(0, 2), 10);
+    mes = parseInt(data.substring(3, 5), 10);
+    ano = parseInt(data.substring(6, 10), 10);
+    hora = parseInt(horario.substring(0, 2), 10);
+    minuto = parseInt(horario.substring(3, 6), 10);
+
     feriados = [
-      '01/01/' + new Date().getFullYear(),
-      '21/04/' + new Date().getFullYear(),
-      '01/05/' + new Date().getFullYear(),
-      '07/09/' + new Date().getFullYear(),
-      '12/10/' + new Date().getFullYear(),
-      '02/11/' + new Date().getFullYear(),
-      '15/11/' + new Date().getFullYear(),
-      '24/12/' + new Date().getFullYear(),
-      '25/12/' + new Date().getFullYear(),
-      '31/12/' + new Date().getFullYear(),
+      '01/01/' + ano,
+      '21/04/' + ano,
+      '01/05/' + ano,
+      '07/09/' + ano,
+      '12/10/' + ano,
+      '02/11/' + ano,
+      '15/11/' + ano,
+      '24/12/' + ano,
+      '25/12/' + ano,
+      '31/12/' + ano,
     ];
 
     eferiado = 0;
-    dia = data.substring(0, 2);
-    mes = data.substring(3, 5);
-    ano = data.substring(6, 10);
-    hora = horario.substring(0, 2);
-    minuto = horario.substring(3, 6);
-
-    dia = parseInt(dia, 10);
-    mes = parseInt(mes, 10);
-    ano = parseInt(ano, 10);
-    hora = parseInt(hora, 10);
-    minuto = parseInt(minuto, 10);
 
     dataatual = new Date(
       new Date().getFullYear(),
@@ -59,7 +52,7 @@ const Marcar = ({ navigation, route }) => {
     );
     dataserv = new Date(ano, mes - 1, dia);
 
-    if (veiculo == '' || descricao == '' || data == '' || horario == '') {
+    if (veiculo == '' || descricao == '' || data == '' || horario == '' || data.length < 10) {
       alert('Um ou mais input obrigatórios vázios.');
     } 
     
@@ -75,12 +68,11 @@ const Marcar = ({ navigation, route }) => {
           alert("Data inválida!")
         }
       }
-      if (mes == 2) {
-        if (dia > 28) {
-          alert("Data inválida!")
-        }
+
+      if (mes == 2 && dia > 28) {
+        alert("Data inválida!")
       }
-    } 
+    }
 
     else {
       for (x = 0; x < feriados.length; x++) {
@@ -89,34 +81,34 @@ const Marcar = ({ navigation, route }) => {
         }
       }
 
-      if (
-        dataserv <= dataatual ||
-        hora < 8 ||
-        hora >= 20 ||
-        dataserv.getDay() == 0 ||
-        ano > new Date().getFullYear() ||
-        eferiado == 1
-      ) {
+      if ( dataserv.getTime() <= dataatual.getTime() || hora < 8 || hora >= 20 || dataserv.getDay() == 0 || ano > new Date().getFullYear() || eferiado == 1 ) {
         if (ano > new Date().getFullYear()) {
           alert('Marcações só para o ano vigente.');
-        } else if (dataserv <= dataatual) {
+        }
+        
+        else if (dataserv.getTime() <= dataatual.getTime()) {
           alert('Marcações só com um dia de antecedência.');
-        } else if (eferiado == 1) {
+        }
+        
+        else if (eferiado == 1) {
           alert('Não funcionamos nesse feriado.');
-        } else if (dataserv.getDay() == 0) {
+        }
+        
+        else if (dataserv.getDay() == 0) {
           alert('Não funcionamos aos domingos.');
-        } else if (hora < 8 || hora >= 20) {
+        }
+        
+        else if (hora < 8 || hora >= 18) {
           alert('Fora do horário de funcionamento.');
         }
-      } else {
+      }
+      
+      else {
         if (minuto < 10) {
           minuto = '0' + minuto;
         }
 
-        if (
-          servico == 'Carro - Troca de óleo' ||
-          servico == 'Moto - Troca de óleo'
-        ) {
+        if ( servico == 'Carro - Troca de óleo' || servico == 'Moto - Troca de óleo' ) {
           if (dia < 10) {
             dia = '0' + dia;
           }
@@ -125,48 +117,15 @@ const Marcar = ({ navigation, route }) => {
             mes = '0' + mes;
           }
 
-          dataret =
-            dia + '/' + mes + '/' + ano + ' - ' + (hora + 2) + ':' + minuto;
-        } else {
-          if (
-            mes == 1 ||
-            mes == 3 ||
-            mes == 5 ||
-            mes == 7 ||
-            mes == 8 ||
-            mes == 10 ||
-            mes == 12
-          ) {
-            if (dia == 31) {
-              dia = 1;
-              if (mes == 12) {
-                mes = 1;
-                ano = ano + 1;
-              } else {
-                mes = mes + 1;
-              }
-            } else {
-              dia = dia + 1;
-            }
-          }
+          dataret = dia + '/' + mes + '/' + ano + ' - ' + (hora + 2) + ':' + minuto;
+        }
+        
+        else {
+          dataserv.setDate(dataserv.getDate() + 1);
 
-          if (mes == 4 || mes == 6 || mes == 7 || mes == 11) {
-            if (dia == 30) {
-              dia = 1;
-              mes = mes + 1;
-            } else {
-              dia = dia + 1;
-            }
-          }
-
-          if (mes == 2) {
-            if (dia == 28) {
-              dia = 1;
-              mes = mes + 1;
-            } else {
-              dia = dia + 1;
-            }
-          }
+          dia = dataserv.getDate();
+          mes = dataserv.getMonth() + 1;
+          ano = dataserv.getFullYear();
 
           if (dia < 10) {
             dia = '0' + dia;
@@ -175,12 +134,20 @@ const Marcar = ({ navigation, route }) => {
           if (mes < 10) {
             mes = '0' + mes;
           }
+
+        if (hora < 10) {
+          hora = '0' + hora;
+        }
+
+        if (minuto < 10) {
+          minuto = '0' + minuto;
+        }
 
           dataret = dia + '/' + mes + '/' + ano + ' - ' + hora + ':' + minuto;
         }
 
         banco
-          .collection('Servicos')
+          .collection('Marcados')
           .add({
             usuario,
             servico,
