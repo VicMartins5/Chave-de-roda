@@ -7,9 +7,30 @@ var fundo = '#222222';
 var fundosec = '#383838';
 var fonte = '#ffa500';
 
+export { fundo, fundosec, fonte};
+
 var width = Dimensions.get('window').width;
+var height = Dimensions.get('window').height;
 
 const estilos = StyleSheet.create({
+  modal_content: {
+    backgroundColor: fundosec,
+    height: height * 0.4,
+    width: '90%',
+    alignSelf: 'center',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+  },
+
+  modal: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    margin: 0,
+  },
+
   main_meio: {
     flex: 1,
     justifyContent: 'center',
@@ -49,6 +70,7 @@ const estilos = StyleSheet.create({
     marginBottom: 10,
     paddingLeft: '1%',
     color: fonte,
+    fontWeight: 500
   },
 
   input: {
@@ -61,7 +83,8 @@ const estilos = StyleSheet.create({
     fontSize: 15,
     marginBottom: 10,
     outlineStyle: 'none',
-    textAlign: 'left'
+    textAlign: 'left',
+    fontWeight: 500
   },
 
   acao_gp: {
@@ -87,14 +110,19 @@ const estilos = StyleSheet.create({
     padding: '10px',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     borderRadius: 5,
+  },
+
+  acao_texto: {
     fontSize: 15,
-    fontWeight: 'bold',
+    fontWeight: 600,
     color: fundo,
   },
 
   acao_icone: {
     color: fundo,
+    fontWeight: 600,
   },
 
   titulo: {
@@ -147,6 +175,12 @@ const estilos = StyleSheet.create({
     backgroundColor: fundo,
   },
 
+  menu_admin_botao: {
+    width: '33%',
+    height: 50,
+    backgroundColor: fundo,
+  },
+
   menu_icones: {
     alignSelf: 'center',
     color: fonte,
@@ -187,7 +221,7 @@ const estilos = StyleSheet.create({
   },
 
   marcados_veiculo: {
-    width: '40%',
+    width: '70%',
     textAlign: 'left',
     fontWeight: 'bold',
     fontSize: 12,
@@ -195,7 +229,7 @@ const estilos = StyleSheet.create({
   },
 
   marcados_data: {
-    width: '60%',
+    width: '30%',
     textAlign: 'right',
     fontWeight: 'bold',
     fontSize: 12,
@@ -213,7 +247,86 @@ const estilos = StyleSheet.create({
   marcados_icones: {
     color: fonte,
     width: '5%',
+    marginBottom: 10,
   },
+
+  veiculo_servicos: {
+    backgroundColor: fundosec,
+    flexDirection: "row",
+    padding: 10,
+    borderRadius: 5,
+    color: fonte,
+    marginBottom: 10,
+  },
+
+  menu_servicos: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    flexWrap: 'nowrap',
+    zIndex: 10
+  },
+
+  menu_servico_botao: {
+    marginTop: 10,
+    padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderRadius: 5,
+    width: '48%',
+    backgroundColor: fonte,
+    marginRight: '2%',
+    height: 41,
+  },
+
+  servicos: {
+    backgroundColor: fundosec,
+    borderRadius: 10,
+    marginBottom: 10,
+    width: '100%',
+    flex: 1,
+    flexDirection: "row",
+  },
+
+  servicos_info: {
+    flexDirection: 'row',
+    width: '90%',
+    flexWrap: 'wrap',
+    padding: 10,
+  },
+
+  servicos_gp_acoes: {
+    width: '5%',
+    padding: 10,
+  },
+
+  input_opcoes: {
+    marginBottom: 10,
+    backgroundColor: fundo,
+    borderRadius: 0,
+    borderWidth: 0,
+    borderBottomColor: fonte,
+    borderBottomWidth: 1,
+    textAlign: 'left',
+  },
+
+  veiculo_boxs: {
+    marginRight: 10,
+  },
+
+  veiculo_boxs_servico: {
+    color: fonte,
+    textAlign: 'left',
+    width: '70%'
+  },
+
+  veiculo_boxs_valor: {
+    color: fonte,
+    textAlign: 'right',
+    width: '30%'
+  },
+
 });
 
 export default estilos;

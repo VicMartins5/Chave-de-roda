@@ -5,15 +5,18 @@ import {
   TouchableOpacity,
   Text,
   ScrollView,
+  Image,
 } from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
 
 import { auth } from '../../firebase';
 import estilos from '../0.Outros/Estilos'
+import Modal from 'react-native-modal';
 
 const Senha = ({ navigation }) => {
   const [email, setEmail] = useState('');
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const AlterarSenha = () => {
     if (email == "") {
@@ -22,8 +25,16 @@ const Senha = ({ navigation }) => {
     else {
       auth.sendPasswordResetEmail(email)
         .then(() => {
-          navigation.navigate('SenhaAlterada');
+          setModalVisible(!isModalVisible);
+
+          if (isModalVisible == false) {
+            setTimeout(() => {
+              navigation.navigate('Login');
+              setModalVisible(false);
+            }, 2000);
+          }
         })
+        .catch(error => alert(error.message))
     }
   };
 
@@ -75,6 +86,26 @@ const Senha = ({ navigation }) => {
             />
         </TouchableOpacity>
       </View>
+
+      <Modal
+        isVisible={isModalVisible}
+        animationIn={'slideInDown'}
+        animationOut={'slideOutDown'}
+        animationInTiming={300}
+        animationOutTiming={300}
+        backdropTransitionInTiming={300}
+        backdropTransitionOutTiming={300}
+        style={estilos.modal}
+        transparent
+      >
+        <View style={estilos.modal_content}>      
+          <Image
+            style={estilos.logo}
+            source={require('../../Imagens/Logo.svg')}
+          />
+          <Text style={estilos.titulo}>E-mail de redefinição de senha enviado.</Text>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };

@@ -11,6 +11,7 @@ import Icon from '@expo/vector-icons/Ionicons';
 
 import { banco, auth } from '../../firebase';
 import estilos from '../0.Outros/Estilos'
+import Menu from '../Menu'
 
 const Avaliados = ({ navigation }) => {
   const Deslogar = () => {
@@ -67,48 +68,9 @@ const Avaliados = ({ navigation }) => {
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}>
 
+      <Menu />
+
       <Text style={estilos.titulo}>Serviços avaliados</Text>
-
-      <View style={estilos.menu}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Veiculo')}
-          style={estilos.menu_botao}>
-            <Icon
-              name="car"
-              size={25}
-              style={estilos.menu_icones}
-            />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Marcados')}
-          style={estilos.menu_botao}>
-            <Icon
-              name="calendar"
-              size={25}
-              style={estilos.menu_icones}
-            />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={estilos.menu_botao}>
-            <Icon
-              name="star"
-              size={25}
-              style={estilos.menu_icones}
-            />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={Deslogar}
-          style={estilos.menu_botao}>
-            <Icon
-              name="log-out"
-              size={25}
-              style={estilos.menu_icones}
-            />
-        </TouchableOpacity>
-      </View>
 
       <FlatList
         data={data}

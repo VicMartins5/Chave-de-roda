@@ -5,19 +5,31 @@ import {
   TouchableOpacity,
   Text,
   ScrollView,
+  Image
 } from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
 import MaskInput from 'react-native-mask-input';
+import DropDownPicker from 'react-native-dropdown-picker'
+import Modal from 'react-native-modal';
 
 import { banco, auth } from '../../firebase';
-import estilos from '../0.Outros/Estilos'
+import estilos, {fundo, fonte} from '../0.Outros/Estilos';
 
 const Marcar = ({ navigation, route }) => {
   const usuario = auth.currentUser.email;
-  const { servico } = route.params;
+  const { veiculo, servico, valor } = route.params;
+  const [isModalVisible, setModalVisible] = useState(false);
 
-  const [veiculo, setVeiculo] = React.useState('');
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [oficina, setOficina] = useState([
+    {label: 'Jardim América', value: 'Jardim América'},
+    {label: 'Montese', value: 'Montese'},
+    {label: 'Parangaba', value: 'Parangaba'},
+  ]);
+
+  const [modelo, setModelo] = React.useState('');
   const [descricao, setDescricao] = React.useState('');
   const [data, setData] = React.useState('');
   const [horario, setHorario] = React.useState('');
@@ -52,7 +64,7 @@ const Marcar = ({ navigation, route }) => {
     );
     dataserv = new Date(ano, mes - 1, dia);
 
-    if (veiculo == '' || descricao == '' || data == '' || horario == '' || data.length < 10) {
+    if (value == '' || modelo == '' || descricao == '' || data == '' || horario == '' || data.length < 10) {
       alert('Um ou mais input obrigatórios vázios.');
     } 
     
@@ -79,7 +91,7 @@ const Marcar = ({ navigation, route }) => {
         }
       }
 
-      if ( dataserv.getTime() <= dataatual.getTime() || hora < 8 || hora >= 20 || dataserv.getDay() == 0 || ano > new Date().getFullYear() || eferiado == 1 ) {
+      if ( dataserv.getTime() <= dataatual.getTime() || hora < 8 || hora >= 18 || dataserv.getDay() == 0 || ano > new Date().getFullYear() || eferiado == 1 ) {
         if (ano > new Date().getFullYear()) {
           alert('Marcações só para o ano vigente.');
         }
@@ -102,11 +114,11 @@ const Marcar = ({ navigation, route }) => {
       }
       
       else {
-        if (minuto < 10 && minuto > 0) {
+        if (minuto < 10) {
           minuto = '0' + minuto;
         }
 
-        if ( servico == 'Carro - Troca de óleo' || servico == 'Moto - Troca de óleo' ) {
+        if ( servico == 'Troca de óleo') {
           if (dia < 10) {
             dia = '0' + dia;
           }
@@ -137,7 +149,7 @@ const Marcar = ({ navigation, route }) => {
           hora = '0' + hora;
         }
 
-        if (minuto < 10 && minuto > 0) {
+        if (minuto < 10) {
           minuto = '0' + minuto;
         }
 
@@ -148,17 +160,26 @@ const Marcar = ({ navigation, route }) => {
           .collection('Marcados')
           .add({
             usuario,
-            servico,
-            veiculo,
+            servico: veiculo + ': ' + servico,
+            valor,
+            oficina: value,
+            modelo,
+            descricao,
             data,
             dataret,
-            descricao,
             avaliacao,
             avaliado: false,
           })
-          .then(() => {
-            navigation.navigate('Marcado', { dataretor: dataret });
-          });
+
+          setModalVisible(!isModalVisible);
+
+          if (isModalVisible == false) {
+            setTimeout(() => {
+            navigation.navigate('Marcados');
+            setModalVisible(false);
+            }, 4000);
+          }
+
       }
     }
   };
@@ -180,6 +201,41 @@ const Marcar = ({ navigation, route }) => {
         <Text style={estilos.input}>{servico}</Text>
 
         <Icon
+          name="cash-outline"
+          size={15}
+          style={estilos.input_icone}
+        />
+        <Text style={estilos.input}>R$ {valor}</Text>
+
+        <View style={estilos.menu_servicos}>
+          <Icon
+            name="business-outline"
+            size={15}
+            style={[estilos.input_icone,{marginTop: 3}]} 
+          />
+          <DropDownPicker
+            open={open}
+            value={value}
+            items={oficina}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setOficina}
+            placeholder=
+            "Selecione a oficina"
+            placeholderStyle={{
+              padding: 0,
+              fontSize: 15
+            }}
+            style={[estilos.input_opcoes,{ borderBottomColor: fonte, width: '95%'}]} 
+            textStyle={{color: fonte, fontSize: 15, fontWeight: 500}}
+            dropDownContainerStyle={{backgroundColor: fundo, borderWidth: 0}}
+            listItemLabelStyle={{textAlign: 'left'}}
+            showTickIcon={false}
+            arrowIconStyle={{tintColor: fonte}}
+          />
+        </View>
+
+        <Icon
           name="car-outline"
           size={15}
           style={estilos.input_icone}
@@ -187,8 +243,8 @@ const Marcar = ({ navigation, route }) => {
         <TextInput
           style={estilos.input}
           placeholder={'Modelo'}
-          onChangeText={setVeiculo}
-          value={veiculo}
+          onChangeText={setModelo}
+          value={modelo}
           keyboardType={'text'}
         >
         </TextInput>
@@ -261,6 +317,27 @@ const Marcar = ({ navigation, route }) => {
             />
         </TouchableOpacity>
       </View>
+
+      <Modal
+        isVisible={isModalVisible}
+        animationIn={'slideInDown'}
+        animationOut={'slideOutDown'}
+        animationInTiming={300}
+        animationOutTiming={300}
+        backdropTransitionInTiming={300}
+        backdropTransitionOutTiming={300}
+        style={estilos.modal}
+        transparent
+      >
+        <View style={estilos.modal_content}>      
+          <Image
+            style={estilos.logo}
+            source={require('../../Imagens/Logo.svg')}
+          />
+          <Text style={estilos.titulo}>Serviço marcado com sucesso.</Text>
+          <Text style={[estilos.titulo, { fontSize: '10', marginTop: 20 }]}>Data prevista para devolução do veículo: {dataret}</Text>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };

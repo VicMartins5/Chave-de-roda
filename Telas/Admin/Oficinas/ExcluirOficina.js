@@ -6,20 +6,20 @@ import {
 } from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
-import { banco} from '../../firebase';
+import { banco} from '../../../firebase';
 
-import estilos from '../0.Outros/Estilos'
+import estilos from '../../0.Outros/Estilos'
 
-const CancelarServico = ({ navigation, route }) => {
-  const { id, veiculo, data, servico, descricao } = route.params;
+const ExcluirServico = ({ navigation, route }) => {
+  const { id, veiculo, servico, valor } = route.params;
 
-  const Cancelar = () => {
+  const Excluir = () => {
     banco
-      .collection('Marcados')
+      .collection('Servicos')
       .doc(id)
       .delete()
       .then(() => {
-        navigation.navigate('Cancelado');
+        navigation.navigate('AdminServicos');
       });
   };
 
@@ -29,20 +29,13 @@ const CancelarServico = ({ navigation, route }) => {
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}>
 
-      <Text style={estilos.titulo}>Deseja cancelar a marcação do serviço abaixo?</Text>
+      <Text style={estilos.titulo}>Deseja excluir o serviço abaixo?</Text>
 
       <View style={estilos.marcados}>
-        <View
-          style={estilos.marcados_info}>
-          <Text style={estilos.marcados_veiculo}>{veiculo}</Text>
-          <Text style={estilos.marcados_data}>{data}</Text>
-        </View>
-
-        <View
-          style={estilos.marcados_info}>
-          <Text style={estilos.marcados_descricao}>{servico}</Text>
-          <Text style={estilos.marcados_descricao}>{descricao}</Text>
-        </View>
+          <View style={estilos.servicos_info}>
+            <Text style={estilos.marcados_descricao}>{veiculo}</Text>
+            <Text style={estilos.marcados_descricao}>{servico} - R$ {valor}</Text>
+          </View>
       </View>
 
       <View style={estilos.acao_gp}>
@@ -60,7 +53,7 @@ const CancelarServico = ({ navigation, route }) => {
         
         <TouchableOpacity
           style={estilos.acao}
-          onPress={Cancelar}
+          onPress={Excluir}
         >
             Sim
             <Icon
@@ -74,4 +67,4 @@ const CancelarServico = ({ navigation, route }) => {
   );
 };
 
-export default CancelarServico;
+export default ExcluirServico;

@@ -5,10 +5,12 @@ import {
   TouchableOpacity,
   Text,
   ScrollView,
+  Image,
 } from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
 import MaskInput from 'react-native-mask-input';
+import Modal from 'react-native-modal';
 
 import { banco, auth } from '../../firebase';
 import estilos from '../0.Outros/Estilos'
@@ -19,6 +21,7 @@ const Cadastro = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [confSenha, setConfSenha] = useState('');
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const Cadastrar = () => {
     if (nome == ''|| email == '' || telefone == '' || senha == '' || confSenha == '' || telefone.length < 15) {
@@ -41,10 +44,18 @@ const Cadastro = ({ navigation }) => {
             banco.collection('Usuarios').add({
               nome,
               telefone,
-              email
+              email,
+              cargo: "Cliente"
             })
             .then(() => {
-              navigation.navigate('CadastroFeito');
+              setModalVisible(!isModalVisible);
+
+              if (isModalVisible == false) {
+                setTimeout(() => {
+                  navigation.navigate('Login');
+                  setModalVisible(false);
+                }, 2000);
+              }
             })
           })
           
@@ -153,6 +164,26 @@ const Cadastro = ({ navigation }) => {
             />
         </TouchableOpacity>
       </View>
+
+      <Modal
+        isVisible={isModalVisible}
+        animationIn={'slideInDown'}
+        animationOut={'slideOutDown'}
+        animationInTiming={300}
+        animationOutTiming={300}
+        backdropTransitionInTiming={300}
+        backdropTransitionOutTiming={300}
+        style={estilos.modal}
+        transparent
+      >
+        <View style={estilos.modal_content}>      
+          <Image
+            style={estilos.logo}
+            source={require('../../Imagens/Logo.svg')}
+          />
+          <Text style={estilos.titulo}>Cadastro realizado com sucesso.</Text>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };

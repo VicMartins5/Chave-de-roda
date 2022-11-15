@@ -3,17 +3,20 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+import { useNavigation } from "@react-navigation/native";
 import Icon from '@expo/vector-icons/Ionicons';
 
 import estilos from './0.Outros/Estilos'
 import { auth } from '../firebase';
 
-const Menu = ({ navigation }) => {
+const Menu = () => {
+  const navigation = useNavigation();
+
   const Deslogar = () => {
     auth
       .signOut()
       .then(() => {
-        this.props.navigation.navigate('Login');
+        navigation.navigate('Login');
       })
       .catch((error) => alert(error.message));
   };
@@ -21,7 +24,7 @@ const Menu = ({ navigation }) => {
     return (
       <View style={estilos.menu}>
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Veiculo')}
+          onPress={() => navigation.navigate('Veiculo')}
           style={estilos.menu_botao}>
           <Icon
             name="car"
@@ -31,7 +34,7 @@ const Menu = ({ navigation }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Marcados')}
+          onPress={() => navigation.navigate('Marcados')}
           style={estilos.menu_botao}>
           <Icon
             name="calendar"
@@ -41,20 +44,20 @@ const Menu = ({ navigation }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
+          onPress={() => navigation.navigate('Avaliados')}
           style={estilos.menu_botao}>
             <Icon
               name="star"
-              onPress={() => navigation.navigate('Avaliados')}
               size={25}
               style={estilos.menu_icones}
             />
         </TouchableOpacity>
 
         <TouchableOpacity
+          onPress={Deslogar}
           style={estilos.menu_botao}>
             <Icon
               name="log-out"
-              onPress={Deslogar}
               size={25}
               style={estilos.menu_icones}
             />

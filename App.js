@@ -2,26 +2,31 @@ import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Login from './Telas/1.Dados/1.Login';
-import Cadastro from './Telas/1.Dados/2.1.Cadastro';
-import CadastroFeito from './Telas/1.Dados/2.2.CadastroFeito';
-import Senha from './Telas/1.Dados/3.1.Senha';
-import SenhaAlterada from './Telas/1.Dados/3.2.SenhaAlterada';
+import Login from './Telas/1.Dados/Login';
+import Cadastro from './Telas/1.Dados/Cadastro';
+import Senha from './Telas/1.Dados/Senha';
 
-import Veiculo from './Telas/2.Servicos/1.Veiculo';
-import Carro from './Telas/2.Servicos/2.Carro';
-import Moto from './Telas/2.Servicos/3.Moto';
-import Bicicleta from './Telas/2.Servicos/4.Bicicleta';
+import Veiculo from './Telas/2.Servicos/Veiculo';
+import Servicos from './Telas/2.Servicos/Servicos';
 
-import Marcar from './Telas/3.Marcar/1.1.Marcar';
-import Marcado from './Telas/3.Marcar/1.2.Marcado';
-import Marcados from './Telas/3.Marcar/2.1.Marcados';
-import Cancelar from './Telas/3.Marcar/2.2.CancelarServico';
-import Cancelado from './Telas/3.Marcar/2.3.ServicoCancelado';
+import Marcar from './Telas/2.Servicos/Marcar';
+import Marcados from './Telas/2.Servicos/Marcados';
 
 import Avaliar from './Telas/4.Avaliacao/1.1.Avaliar';
 import Avaliado from './Telas/4.Avaliacao/1.2.Avaliado';
 import Avaliados from './Telas/4.Avaliacao/2.Avaliados';
+
+import AdminInicio from './Telas/Admin/Inicio'
+
+import AdminServicos from './Telas/Admin/Servicos/Servicos'
+import CriarServico from './Telas/Admin/Servicos/CriarServico'
+import EditarServico from './Telas/Admin/Servicos/EditarServico'
+import ExcluirServico from './Telas/Admin/Servicos/ExcluirServico'
+
+import Oficinas from './Telas/Admin/Oficinas/Oficinas'
+import CriarOficina from './Telas/Admin/Oficinas/CriarOficina'
+import EditarOficina from './Telas/Admin/Oficinas/EditarOficina'
+import ExcluirOficina from './Telas/Admin/Oficinas/ExcluirOficina'
 
 import Rodape from './Telas/Rodape';
 
@@ -33,26 +38,31 @@ export default function App() {
       <Stack.Navigator headerMode="none" initialRouteName="Login">
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Cadastro" component={Cadastro} />
-        <Stack.Screen name="CadastroFeito" component={CadastroFeito} />
         <Stack.Screen name="Senha" component={Senha} />
-        <Stack.Screen name="SenhaAlterada" component={SenhaAlterada} />
 
         <Stack.Screen name="Veiculo" component={Veiculo} />
-        <Stack.Screen name="Carro" component={Carro} />
-        <Stack.Screen name="Moto" component={Moto} />
-        <Stack.Screen name="Bicicleta" component={Bicicleta} />
+        <Stack.Screen name="Servicos" component={Servicos} />
 
         <Stack.Screen name="Marcar" component={Marcar} />
-        <Stack.Screen name="Marcado" component={Marcado} />
         <Stack.Screen name="Marcados" component={Marcados} />
-        <Stack.Screen name="Cancelar" component={Cancelar} />
-        <Stack.Screen name="Cancelado" component={Cancelado} />
 
         <Stack.Screen name="Avaliar" component={Avaliar} />
         <Stack.Screen name="Avaliado" component={Avaliado} />
         <Stack.Screen name="Avaliados" component={Avaliados} />
-      </Stack.Navigator>
 
+        <Stack.Screen name="AdminInicio" component={AdminInicio} />
+
+        <Stack.Screen name="AdminServicos" component={AdminServicos} />
+        <Stack.Screen name="CriarServico" component={CriarServico} />
+        <Stack.Screen name="EditarServico" component={EditarServico} />
+        <Stack.Screen name="ExcluirServico" component={ExcluirServico} />
+
+        <Stack.Screen name="Oficinas" component={Oficinas} />
+        <Stack.Screen name="CriarOficina" component={CriarOficina} />
+        <Stack.Screen name="EditarOficina" component={EditarOficina} />
+        <Stack.Screen name="ExcluirOficina" component={ExcluirOficina} />
+      </Stack.Navigator>
+      
       <View>
         <Rodape />
       </View>

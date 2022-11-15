@@ -9,13 +9,12 @@ import {
 
 import Icon from '@expo/vector-icons/Ionicons';
 
-import { auth } from '../../firebase';
+import { banco, auth } from '../../firebase';
 import estilos from '../0.Outros/Estilos'
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  var erro;
 
   const Logar = () => {
     if (senha == '' || email == '') {
@@ -26,9 +25,23 @@ const Login = ({ navigation }) => {
       auth
         .signInWithEmailAndPassword(email, senha)
         .then(() => {
-          navigation.navigate('Veiculo');
+          var cargo
+          banco.collection('Usuarios')
+          .where('email', '==', email)
+          .get()
+          .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+              cargo = doc.data().cargo
+              if (cargo == "Gerente" || cargo=="Supervisor") {
+                navigation.navigate('AdminInicio');
+              }
+              
+              if (cargo == "Cliente") {
+                navigation.navigate('Veiculo');
+              }
+            })
+          });
         })
-        
         .catch(error => alert(error.message))
     }
   };
