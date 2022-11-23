@@ -1,65 +1,63 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
+  ScrollView,
+  Text,
   View,
   TextInput,
   TouchableOpacity,
-  Text,
-  ScrollView,
   Image,
-} from 'react-native';
+} from "react-native";
 
-import Icon from '@expo/vector-icons/Ionicons';
-import MaskInput from 'react-native-mask-input';
-import Modal from 'react-native-modal';
+import Icon from "@expo/vector-icons/Ionicons";
+import MaskInput from "react-native-mask-input";
+import Modal from "react-native-modal";
 
-import { banco, auth } from '../../firebase';
-import estilos from '../0.Outros/Estilos'
+import { banco, auth } from "../../firebase";
+import estilos from "../Estilos"
 
 const Cadastro = ({ navigation }) => {
-  const [nome, setNome] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const [confSenha, setConfSenha] = useState('');
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [nome, setNome] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [confSenha, setConfSenha] = useState("");
+  const [modalCadastrado, setModalCadastrado] = useState(false);
 
   const Cadastrar = () => {
-    if (nome == ''|| email == '' || telefone == '' || senha == '' || confSenha == '' || telefone.length < 15) {
-      alert('Um ou mais campos vazios.');
+    if (nome == "" || telefone == "" || email == ""  || senha == "" || confSenha == "" || telefone.length < 15) {
+      alert("Um ou mais campos vazios.");
     }
     
     else {
       if (senha != confSenha) {
-        alert('Senhas não são iguais.')
+        alert("Senhas não correspondem.")
       }
 
-      if (senha.length < 6) {
-        alert('Senha precisa ter ao menos 6 caracteres.');
+      else if (senha.length < 6) {
+        alert("Senha precisa ter ao menos 6 caracteres.");
       }
 
       else {
-        auth
-          .createUserWithEmailAndPassword(email, senha)
-          .then(() => {
-            banco.collection('Usuarios').add({
-              nome,
-              telefone,
-              email,
-              cargo: "Cliente"
-            })
-            .then(() => {
-              setModalVisible(!isModalVisible);
-
-              if (isModalVisible == false) {
-                setTimeout(() => {
-                  navigation.navigate('Login');
-                  setModalVisible(false);
-                }, 2000);
-              }
-            })
+        auth.createUserWithEmailAndPassword(email, senha).then(() => {
+          banco.collection("Usuarios").add({
+            nome,
+            telefone,
+            email: email.toLowerCase(),
+            cargo: "Cliente",
+            datacriacao: new Date(),
           })
-          
-          .catch(error => alert(error.message))
+            
+          setModalCadastrado(!modalCadastrado);
+
+          if (modalCadastrado == false) {
+            setTimeout(() => {
+              navigation.navigate("Login");
+              setModalCadastrado(false);
+            }, 2000);
+          }
+        })
+        
+        .catch(error => alert(error.message))
       }
     }
   };
@@ -72,54 +70,50 @@ const Cadastro = ({ navigation }) => {
       
       <Text style={estilos.titulo}>Cadastrar usuário</Text>
 
-      <View style={estilos.input_gp}>
+      <View style={estilos.input_grupo}>
         <Icon
           name="person-outline"
-          size={15} 
           style={estilos.input_icone}
         />
         <TextInput
-          style={estilos.input}
-          placeholder={'Nome'}
+          style={estilos.input_campo}
+          placeholder={"Nome"}
           value={nome}
           onChangeText={(text) => setNome(text)}
-          keyboardType={'text'}
+          keyboardType={"text"}
         />
 
         <Icon
           name="call-outline"
-          size={15} 
           style={estilos.input_icone}
         />
         <MaskInput
-          style={estilos.input}
-          placeholder={'Telefone'}
+          style={estilos.input_campo}
+          placeholder={"Telefone"}
           value={telefone}
           onChangeText={(masked, unmasked) => {setTelefone(masked);}}
-          mask={['(', /\d/, /\d/, ') ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/,]}
+          mask={["(", /\d/, /\d/, ") ", /\d/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/,]}
         />
 
         <Icon
           name="mail-outline"
-          size={15} 
           style={estilos.input_icone}
         />
         <TextInput
-          style={estilos.input}
-          placeholder={'E-mail'}
+          style={estilos.input_campo}
+          placeholder={"E-mail"}
           value={email}
           onChangeText={(text) => setEmail(text)}
-          keyboardType={'text'}
+          keyboardType={"text"}
         />
 
         <Icon
           name="key-outline"
-          size={15}
           style={estilos.input_icone}
         />
         <TextInput
-          style={estilos.input}
-          placeholder={'Senha'}
+          style={estilos.input_campo}
+          placeholder={"Senha"}
           value={senha}
           onChangeText={(text) => setSenha(text)}
           secureTextEntry={true}
@@ -127,61 +121,57 @@ const Cadastro = ({ navigation }) => {
 
         <Icon
           name="key-outline"
-          size={15}
           style={estilos.input_icone}
         />
         <TextInput
-          style={estilos.input}
-          placeholder={'Confirme a senha'}
+          style={estilos.input_campo}
+          placeholder={"Confirme a senha"}
           value={confSenha}
           onChangeText={(text) => setConfSenha(text)}
           secureTextEntry={true}
         />
       </View>
 
-      <View style={estilos.acao_gp}>
+      <View style={estilos.input_acao_grupo}>
         <TouchableOpacity
-          style={estilos.acao}
-          onPress={() => navigation.navigate('Login')}
+          style={estilos.input_acao}
+          onPress={() => navigation.navigate("Login")}
         >
-            Cancelar
-            <Icon
-              name="arrow-back"
-              size={20}
-              style={estilos.acao_icone}
-            />
+          <Text style={estilos.input_acao_texto}>Cancelar</Text>
+          <Icon
+            name="arrow-back"
+            style={estilos.input_acao_icone}
+          />
         </TouchableOpacity>
         
         <TouchableOpacity
-          style={estilos.acao}
+          style={estilos.input_acao}
           onPress={Cadastrar}
         >
-            Cadastrar-se
-            <Icon
-              name="person-add"
-              size={20}
-              style={estilos.acao_icone}
-            />
+          <Text style={estilos.input_acao_texto}>Cadastrar-se</Text>
+          <Icon
+            name="person-add"
+            style={estilos.input_acao_icone}
+          />
         </TouchableOpacity>
       </View>
 
       <Modal
-        isVisible={isModalVisible}
-        animationIn={'slideInDown'}
-        animationOut={'slideOutDown'}
+        isVisible={modalCadastrado}
+        animationIn={"slideInDown"}
+        animationOut={"slideOutDown"}
         animationInTiming={300}
         animationOutTiming={300}
         backdropTransitionInTiming={300}
         backdropTransitionOutTiming={300}
-        style={estilos.modal}
         transparent
       >
-        <View style={estilos.modal_content}>      
+        <View style={estilos.modal}>      
           <Image
             style={estilos.logo}
-            source={require('../../Imagens/Logo.svg')}
+            source={require("../../Imagens/Logo.svg")}
           />
-          <Text style={estilos.titulo}>Cadastro realizado com sucesso.</Text>
+          <Text style={estilos.modal_titulo}>Cadastro realizado com sucesso.</Text>
         </View>
       </Modal>
     </ScrollView>

@@ -1,30 +1,29 @@
 import {
   View,
-  StyleSheet,
-  TouchableOpacity,
   Text,
+  TouchableOpacity,
   Linking,
 } from 'react-native';
 
-import estilos from './0.Outros/Estilos'
+import estilos from '../Estilos'
 
 const Rodape = () => {
   return (
     <View style={estilos.rodape}>
-      <Text style={estilos.rodape_texto}>
-        Desenvolvido por
-      </Text>
+      <Text style={estilos.rodape_texto}>Desenvolvido por</Text>
 
       <TouchableOpacity
+        style={{alignSelf: "center"}}
         onPress={() => Linking.openURL('https://github.com/Anderson780')}
-        style={[estilos.rodape_texto, estilos.rodape_dev]}>
-        Anderson Soares Gomes
+      >
+        <Text style={estilos.rodape_dev}>Anderson Soares Gomes</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
+        style={{alignSelf: "center"}}
         onPress={() => Linking.openURL('https://github.com/VicMartins5')}
-        style={[estilos.rodape_texto, estilos.rodape_dev]}>
-        Victor Aurelio Camelo Martins
+      >
+        <Text style={estilos.rodape_dev}>Victor Aurelio Camelo Martins</Text>
       </TouchableOpacity>
     </View>
   );

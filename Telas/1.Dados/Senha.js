@@ -1,40 +1,41 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
+  ScrollView,
+  Text,
   View,
   TextInput,
   TouchableOpacity,
-  Text,
-  ScrollView,
   Image,
-} from 'react-native';
+} from "react-native";
 
-import Icon from '@expo/vector-icons/Ionicons';
+import Icon from "@expo/vector-icons/Ionicons";
 
-import { auth } from '../../firebase';
-import estilos from '../0.Outros/Estilos'
-import Modal from 'react-native-modal';
+import { auth } from "../../firebase";
+import estilos from "../Estilos"
+import Modal from "react-native-modal";
 
 const Senha = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [modalSenha, setModalSenha] = useState(false);
 
   const AlterarSenha = () => {
     if (email == "") {
-      alert("Campo de E-mail vazio.")
+      alert("Campo de e-mail vazio.")
     }
-    else {
-      auth.sendPasswordResetEmail(email)
-        .then(() => {
-          setModalVisible(!isModalVisible);
 
-          if (isModalVisible == false) {
-            setTimeout(() => {
-              navigation.navigate('Login');
-              setModalVisible(false);
-            }, 2000);
-          }
-        })
-        .catch(error => alert(error.message))
+    else {
+      auth.sendPasswordResetEmail(email).then(() => {
+        setModalSenha(!modalSenha);
+
+        if (modalSenha == false) {
+          setTimeout(() => {
+            navigation.navigate("Login");
+            setModalSenha(false);
+          }, 2000);
+        }
+      })
+      
+      .catch(error => alert(error.message))
     }
   };
 
@@ -46,64 +47,60 @@ const Senha = ({ navigation }) => {
       
       <Text style={estilos.titulo}>Alterar senha</Text>
 
-      <View style={estilos.input_gp}>
+      <View style={estilos.input_acao_grupo}>
         <Icon
           name="mail-outline"
-          size={15} 
           style={estilos.input_icone}
         />
         <TextInput
-          style={estilos.input}
-          placeholder={'E-mail'}
+          style={estilos.input_campo}
+          placeholder={"Email"}
           value={email}
           onChangeText={(text) => setEmail(text)}
-          keyboardType={'text'}
+          keyboardType={"text"}
         />
       </View>
 
-      <View style={estilos.acao_gp}>
+      <View style={estilos.input_acao_grupo}>
         <TouchableOpacity
-          style={estilos.acao}
-          onPress={() => navigation.navigate('Login')}
+          style={estilos.input_acao}
+          onPress={() => navigation.navigate("Login")}
         >
-            Cancelar
-            <Icon
-              name="arrow-back"
-              size={20}
-              style={estilos.acao_icone}
-            />
+          <Text style={estilos.input_acao_texto}>Cancelar</Text>
+          <Icon
+            name="arrow-back"
+            style={estilos.input_acao_icone}
+          />
         </TouchableOpacity>
         
         <TouchableOpacity
-          style={estilos.acao}
+          style={estilos.input_acao}
           onPress={AlterarSenha}
         >
-            Alterar
-            <Icon
-              name="arrow-forward"
-              size={20}
-              style={estilos.acao_icone}
-            />
+          <Text style={estilos.input_acao_texto}>Alterar</Text>
+          <Icon
+            name="key"
+            style={estilos.input_acao_icone}
+          />
         </TouchableOpacity>
       </View>
 
       <Modal
-        isVisible={isModalVisible}
-        animationIn={'slideInDown'}
-        animationOut={'slideOutDown'}
+        isVisible={modalSenha}
+        animationIn={"slideInDown"}
+        animationOut={"slideOutDown"}
         animationInTiming={300}
         animationOutTiming={300}
         backdropTransitionInTiming={300}
         backdropTransitionOutTiming={300}
-        style={estilos.modal}
         transparent
       >
-        <View style={estilos.modal_content}>      
+        <View style={estilos.modal}>      
           <Image
             style={estilos.logo}
-            source={require('../../Imagens/Logo.svg')}
+            source={require("../../Imagens/Logo.svg")}
           />
-          <Text style={estilos.titulo}>E-mail de redefinição de senha enviado.</Text>
+          <Text style={estilos.modal_titulo}>Email de redefinição de senha enviado.</Text>
         </View>
       </Modal>
     </ScrollView>
