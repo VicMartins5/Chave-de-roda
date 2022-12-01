@@ -35,7 +35,7 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator headerMode="none" initialRouteName="Inicio">
+      <Stack.Navigator headerMode="none" initialRouteName="Login">
         {/* CLIENTE E ADMIN */}
         <Stack.Screen name="Cadastro" component={Cadastro} />
         <Stack.Screen name="Login" component={Login} />
